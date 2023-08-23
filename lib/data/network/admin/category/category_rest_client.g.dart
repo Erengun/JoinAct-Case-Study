@@ -21,6 +21,33 @@ class _CategoryRestClient implements CategoryRestClient {
   String? baseUrl;
 
   @override
+  Future<GetCategoriesResponse> getCategories(String devKey) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = devKey;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetCategoriesResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/GetCategories',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = GetCategoriesResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<CreateCategoryResponse> createCategory(
       CreateCategoryRequest request) async {
     const _extra = <String, dynamic>{};
