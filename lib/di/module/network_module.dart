@@ -8,6 +8,12 @@ import '../../constants/endpoints.dart';
 import '../../data/getstore/get_store_helper.dart';
 import '../../data/network/admin/category/category_rest_client.dart';
 
+
+/// NetworkModule is used to register network related dependencies. 
+/// @module is used to register the module. 
+/// @preResolve is used to make sure that the Future is resolved before the app starts.
+/// @lazySingleton is used to make sure that the dependency is created only once.
+/// @injectable is used to make sure that the dependency is created only once.
 @module
 abstract class NetworkModule {
   @preResolve
@@ -21,7 +27,10 @@ abstract class NetworkModule {
       ..options.receiveTimeout =
           const Duration(milliseconds: Endpoints.receiveTimeout)
       // ignore: always_specify_types
-      ..options.headers = {'Content-Type': 'application/json; charset=utf-8'}
+      ..options.headers = {
+        'Content-Type': 'application/json; charset=utf-8',
+        'accept': 'text/plain'
+      }
       ..interceptors.add(LogInterceptor(
         request: false,
         responseBody: true,
@@ -39,6 +48,10 @@ abstract class NetworkModule {
 
     return Future.value(dio);
   }
+
+  /// Register RestClients here to be used in the app. 
+  /// It is recommended to use @preResolve annotation to make sure that the
+  /// Future is resolved before the app starts.
 
   @preResolve
   Future<GetStorage> provideGetStorage() {
