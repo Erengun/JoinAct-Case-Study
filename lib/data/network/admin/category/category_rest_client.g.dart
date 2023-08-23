@@ -21,29 +21,60 @@ class _CategoryRestClient implements CategoryRestClient {
   String? baseUrl;
 
   @override
-  Future<String> createCategory(CategoryRequest request) async {
-    const Map<String, dynamic> _extra = <String, dynamic>{};
-    final Map<String, dynamic> queryParameters = <String, dynamic>{};
-    final Map<String, dynamic> _headers = <String, dynamic>{};
-    final Map<String, dynamic> _data = <String, dynamic>{};
+  Future<CreateCategoryResponse> createCategory(
+      CreateCategoryRequest request) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    final Response<String> _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CreateCategoryResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/CreateCategory',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-    final String value = _result.data!;
+            .compose(
+              _dio.options,
+              '/CreateCategory',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = CreateCategoryResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UpdateCategoryResponse> updateCategory(
+      UpdateCategoryRequest request) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UpdateCategoryResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/UpdateCategory',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = UpdateCategoryResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -68,7 +99,7 @@ class _CategoryRestClient implements CategoryRestClient {
       return dioBaseUrl;
     }
 
-    final Uri url = Uri.parse(baseUrl);
+    final url = Uri.parse(baseUrl);
 
     if (url.isAbsolute) {
       return url.toString();

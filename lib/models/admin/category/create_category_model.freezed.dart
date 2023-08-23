@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'category_response.dart';
+part of 'create_category_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,170 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) {
-  return _CategoryResponse.fromJson(json);
+CreateCategoryRequest _$CreateCategoryRequestFromJson(
+    Map<String, dynamic> json) {
+  return _CreateCategoryRequest.fromJson(json);
 }
 
 /// @nodoc
-mixin _$CategoryResponse {
+mixin _$CreateCategoryRequest {
+  String get devKey => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CreateCategoryRequestCopyWith<CreateCategoryRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateCategoryRequestCopyWith<$Res> {
+  factory $CreateCategoryRequestCopyWith(CreateCategoryRequest value,
+          $Res Function(CreateCategoryRequest) then) =
+      _$CreateCategoryRequestCopyWithImpl<$Res, CreateCategoryRequest>;
+  @useResult
+  $Res call({String devKey, String name});
+}
+
+/// @nodoc
+class _$CreateCategoryRequestCopyWithImpl<$Res,
+        $Val extends CreateCategoryRequest>
+    implements $CreateCategoryRequestCopyWith<$Res> {
+  _$CreateCategoryRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? devKey = null,
+    Object? name = null,
+  }) {
+    return _then(_value.copyWith(
+      devKey: null == devKey
+          ? _value.devKey
+          : devKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_CreateCategoryRequestCopyWith<$Res>
+    implements $CreateCategoryRequestCopyWith<$Res> {
+  factory _$$_CreateCategoryRequestCopyWith(_$_CreateCategoryRequest value,
+          $Res Function(_$_CreateCategoryRequest) then) =
+      __$$_CreateCategoryRequestCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String devKey, String name});
+}
+
+/// @nodoc
+class __$$_CreateCategoryRequestCopyWithImpl<$Res>
+    extends _$CreateCategoryRequestCopyWithImpl<$Res, _$_CreateCategoryRequest>
+    implements _$$_CreateCategoryRequestCopyWith<$Res> {
+  __$$_CreateCategoryRequestCopyWithImpl(_$_CreateCategoryRequest _value,
+      $Res Function(_$_CreateCategoryRequest) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? devKey = null,
+    Object? name = null,
+  }) {
+    return _then(_$_CreateCategoryRequest(
+      devKey: null == devKey
+          ? _value.devKey
+          : devKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_CreateCategoryRequest implements _CreateCategoryRequest {
+  const _$_CreateCategoryRequest({required this.devKey, required this.name});
+
+  factory _$_CreateCategoryRequest.fromJson(Map<String, dynamic> json) =>
+      _$$_CreateCategoryRequestFromJson(json);
+
+  @override
+  final String devKey;
+  @override
+  final String name;
+
+  @override
+  String toString() {
+    return 'CreateCategoryRequest(devKey: $devKey, name: $name)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CreateCategoryRequest &&
+            (identical(other.devKey, devKey) || other.devKey == devKey) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, devKey, name);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CreateCategoryRequestCopyWith<_$_CreateCategoryRequest> get copyWith =>
+      __$$_CreateCategoryRequestCopyWithImpl<_$_CreateCategoryRequest>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CreateCategoryRequestToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CreateCategoryRequest implements CreateCategoryRequest {
+  const factory _CreateCategoryRequest(
+      {required final String devKey,
+      required final String name}) = _$_CreateCategoryRequest;
+
+  factory _CreateCategoryRequest.fromJson(Map<String, dynamic> json) =
+      _$_CreateCategoryRequest.fromJson;
+
+  @override
+  String get devKey;
+  @override
+  String get name;
+  @override
+  @JsonKey(ignore: true)
+  _$$_CreateCategoryRequestCopyWith<_$_CreateCategoryRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+CreateCategoryResponse _$CreateCategoryResponseFromJson(
+    Map<String, dynamic> json) {
+  return _CreateCategoryResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CreateCategoryResponse {
   CategoryData get data => throw _privateConstructorUsedError;
   int get result => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
@@ -27,15 +185,15 @@ mixin _$CategoryResponse {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CategoryResponseCopyWith<CategoryResponse> get copyWith =>
+  $CreateCategoryResponseCopyWith<CreateCategoryResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CategoryResponseCopyWith<$Res> {
-  factory $CategoryResponseCopyWith(
-          CategoryResponse value, $Res Function(CategoryResponse) then) =
-      _$CategoryResponseCopyWithImpl<$Res, CategoryResponse>;
+abstract class $CreateCategoryResponseCopyWith<$Res> {
+  factory $CreateCategoryResponseCopyWith(CreateCategoryResponse value,
+          $Res Function(CreateCategoryResponse) then) =
+      _$CreateCategoryResponseCopyWithImpl<$Res, CreateCategoryResponse>;
   @useResult
   $Res call({CategoryData data, int result, String message, bool isSuccessful});
 
@@ -43,9 +201,10 @@ abstract class $CategoryResponseCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CategoryResponseCopyWithImpl<$Res, $Val extends CategoryResponse>
-    implements $CategoryResponseCopyWith<$Res> {
-  _$CategoryResponseCopyWithImpl(this._value, this._then);
+class _$CreateCategoryResponseCopyWithImpl<$Res,
+        $Val extends CreateCategoryResponse>
+    implements $CreateCategoryResponseCopyWith<$Res> {
+  _$CreateCategoryResponseCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -90,11 +249,11 @@ class _$CategoryResponseCopyWithImpl<$Res, $Val extends CategoryResponse>
 }
 
 /// @nodoc
-abstract class _$$_CategoryResponseCopyWith<$Res>
-    implements $CategoryResponseCopyWith<$Res> {
-  factory _$$_CategoryResponseCopyWith(
-          _$_CategoryResponse value, $Res Function(_$_CategoryResponse) then) =
-      __$$_CategoryResponseCopyWithImpl<$Res>;
+abstract class _$$_CreateCategoryResponseCopyWith<$Res>
+    implements $CreateCategoryResponseCopyWith<$Res> {
+  factory _$$_CreateCategoryResponseCopyWith(_$_CreateCategoryResponse value,
+          $Res Function(_$_CreateCategoryResponse) then) =
+      __$$_CreateCategoryResponseCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({CategoryData data, int result, String message, bool isSuccessful});
@@ -104,11 +263,12 @@ abstract class _$$_CategoryResponseCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CategoryResponseCopyWithImpl<$Res>
-    extends _$CategoryResponseCopyWithImpl<$Res, _$_CategoryResponse>
-    implements _$$_CategoryResponseCopyWith<$Res> {
-  __$$_CategoryResponseCopyWithImpl(
-      _$_CategoryResponse _value, $Res Function(_$_CategoryResponse) _then)
+class __$$_CreateCategoryResponseCopyWithImpl<$Res>
+    extends _$CreateCategoryResponseCopyWithImpl<$Res,
+        _$_CreateCategoryResponse>
+    implements _$$_CreateCategoryResponseCopyWith<$Res> {
+  __$$_CreateCategoryResponseCopyWithImpl(_$_CreateCategoryResponse _value,
+      $Res Function(_$_CreateCategoryResponse) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -119,7 +279,7 @@ class __$$_CategoryResponseCopyWithImpl<$Res>
     Object? message = null,
     Object? isSuccessful = null,
   }) {
-    return _then(_$_CategoryResponse(
+    return _then(_$_CreateCategoryResponse(
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -142,15 +302,15 @@ class __$$_CategoryResponseCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CategoryResponse implements _CategoryResponse {
-  const _$_CategoryResponse(
+class _$_CreateCategoryResponse implements _CreateCategoryResponse {
+  const _$_CreateCategoryResponse(
       {required this.data,
       required this.result,
       required this.message,
       required this.isSuccessful});
 
-  factory _$_CategoryResponse.fromJson(Map<String, dynamic> json) =>
-      _$$_CategoryResponseFromJson(json);
+  factory _$_CreateCategoryResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_CreateCategoryResponseFromJson(json);
 
   @override
   final CategoryData data;
@@ -163,14 +323,14 @@ class _$_CategoryResponse implements _CategoryResponse {
 
   @override
   String toString() {
-    return 'CategoryResponse(data: $data, result: $result, message: $message, isSuccessful: $isSuccessful)';
+    return 'CreateCategoryResponse(data: $data, result: $result, message: $message, isSuccessful: $isSuccessful)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CategoryResponse &&
+            other is _$_CreateCategoryResponse &&
             (identical(other.data, data) || other.data == data) &&
             (identical(other.result, result) || other.result == result) &&
             (identical(other.message, message) || other.message == message) &&
@@ -186,26 +346,27 @@ class _$_CategoryResponse implements _CategoryResponse {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CategoryResponseCopyWith<_$_CategoryResponse> get copyWith =>
-      __$$_CategoryResponseCopyWithImpl<_$_CategoryResponse>(this, _$identity);
+  _$$_CreateCategoryResponseCopyWith<_$_CreateCategoryResponse> get copyWith =>
+      __$$_CreateCategoryResponseCopyWithImpl<_$_CreateCategoryResponse>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CategoryResponseToJson(
+    return _$$_CreateCategoryResponseToJson(
       this,
     );
   }
 }
 
-abstract class _CategoryResponse implements CategoryResponse {
-  const factory _CategoryResponse(
+abstract class _CreateCategoryResponse implements CreateCategoryResponse {
+  const factory _CreateCategoryResponse(
       {required final CategoryData data,
       required final int result,
       required final String message,
-      required final bool isSuccessful}) = _$_CategoryResponse;
+      required final bool isSuccessful}) = _$_CreateCategoryResponse;
 
-  factory _CategoryResponse.fromJson(Map<String, dynamic> json) =
-      _$_CategoryResponse.fromJson;
+  factory _CreateCategoryResponse.fromJson(Map<String, dynamic> json) =
+      _$_CreateCategoryResponse.fromJson;
 
   @override
   CategoryData get data;
@@ -217,7 +378,7 @@ abstract class _CategoryResponse implements CategoryResponse {
   bool get isSuccessful;
   @override
   @JsonKey(ignore: true)
-  _$$_CategoryResponseCopyWith<_$_CategoryResponse> get copyWith =>
+  _$$_CreateCategoryResponseCopyWith<_$_CreateCategoryResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
