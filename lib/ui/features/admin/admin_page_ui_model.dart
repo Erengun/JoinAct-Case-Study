@@ -7,7 +7,7 @@ part 'admin_page_ui_model.freezed.dart';
 @freezed
 class AdminPageUIModel with _$AdminPageUIModel {
   const factory AdminPageUIModel({
-    @Default(<Category>[]) List<Category> categories,
+    @Default(null) List<Category>? categories,
     @Default(false) bool isLoading,
     @Default(null) String? errorMessage,
   }) = _AdminPageUIModel;

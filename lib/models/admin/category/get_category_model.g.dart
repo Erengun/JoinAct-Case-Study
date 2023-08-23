@@ -9,8 +9,8 @@ part of 'get_category_model.dart';
 _$_GetCategoryResponse _$$_GetCategoryResponseFromJson(
         Map<String, dynamic> json) =>
     _$_GetCategoryResponse(
-      categories: (json['categories'] as List<dynamic>)
-          .map((e) => Category.fromJson(e as Map<String, dynamic>))
+      categories: (json['categories'] as List<dynamic>?)
+          ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
           .toList(),
       result: json['result'] as int,
       message: json['message'] as String,

@@ -10,7 +10,7 @@ part 'get_category_model.g.dart';
 @freezed
 class GetCategoriesResponse with _$GetCategoriesResponse {
   const factory GetCategoriesResponse({
-    required List<Category> categories,
+    required List<Category>? categories,
     required int result,
     required String message,
     required bool isSuccessful,

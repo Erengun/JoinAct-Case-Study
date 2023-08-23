@@ -44,53 +44,54 @@ class _AdminPageState extends ConsumerState<AdminPage> {
   Widget build(BuildContext context) {
     final AdminPageUIModel categoryLogic = ref.read(adminPageLogicProvider);
     return Scaffold(
-      appBar: const EmptyAppBar(),
-      bottomNavigationBar: const BottomNavBar(),
-      backgroundColor: context.colorScheme.background,
-      body: categoryLogic.errorMessage != null
-          ? Center(
-              child: Text(
-                categoryLogic.errorMessage!,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            )
-          : categoryLogic.isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    const Header(text: 'Admin Section'),
-                    const Divider(),
-                    const ThemeWidget(),
-                    const Divider(),
-                    // show Categories
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: ListView.builder(
-                          itemBuilder: (BuildContext context, int index) {
-                        final Category category =
-                            categoryLogic.categories[index];
-                        return ListTile(
-                          title: Text(
-                            category.id.toString(),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          subtitle: Text(
-                            category.name,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          trailing: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Ionicons.trash_outline),
-                          ),
-                        );
-                      }),
-                    ))
-                  ],
-                ),
-    );
+        appBar: const EmptyAppBar(),
+        bottomNavigationBar: const BottomNavBar(),
+        backgroundColor: context.colorScheme.background,
+        body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Header(text: 'Admin Section'),
+              const Divider(),
+              const ThemeWidget(),
+              const Header(text: 'Categories'),
+              if (categoryLogic.categories == null)
+                const Expanded(child: Center(child: Text('No data')))
+              else
+                categoryLogic.errorMessage != null
+                    ? Center(
+                        child: Text(
+                          categoryLogic.errorMessage!,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      )
+                    : categoryLogic.isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : // show Categories
+                        Expanded(
+                            child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: ListView.builder(
+                                itemBuilder: (BuildContext context, int index) {
+                              final Category category =
+                                  categoryLogic.categories![index];
+                              return ListTile(
+                                title: Text(
+                                  category.id.toString(),
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                subtitle: Text(
+                                  category.name,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                trailing: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Ionicons.trash_outline),
+                                ),
+                              );
+                            }),
+                          ))
+            ]));
   }
 }
 

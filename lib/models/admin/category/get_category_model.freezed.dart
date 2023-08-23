@@ -21,7 +21,7 @@ GetCategoriesResponse _$GetCategoriesResponseFromJson(
 
 /// @nodoc
 mixin _$GetCategoriesResponse {
-  List<Category> get categories => throw _privateConstructorUsedError;
+  List<Category>? get categories => throw _privateConstructorUsedError;
   int get result => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   bool get isSuccessful => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $GetCategoriesResponseCopyWith<$Res> {
       _$GetCategoriesResponseCopyWithImpl<$Res, GetCategoriesResponse>;
   @useResult
   $Res call(
-      {List<Category> categories,
+      {List<Category>? categories,
       int result,
       String message,
       bool isSuccessful});
@@ -59,16 +59,16 @@ class _$GetCategoriesResponseCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categories = null,
+    Object? categories = freezed,
     Object? result = null,
     Object? message = null,
     Object? isSuccessful = null,
   }) {
     return _then(_value.copyWith(
-      categories: null == categories
+      categories: freezed == categories
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
+              as List<Category>?,
       result: null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -94,7 +94,7 @@ abstract class _$$_GetCategoryResponseCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<Category> categories,
+      {List<Category>? categories,
       int result,
       String message,
       bool isSuccessful});
@@ -111,16 +111,16 @@ class __$$_GetCategoryResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categories = null,
+    Object? categories = freezed,
     Object? result = null,
     Object? message = null,
     Object? isSuccessful = null,
   }) {
     return _then(_$_GetCategoryResponse(
-      categories: null == categories
+      categories: freezed == categories
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
+              as List<Category>?,
       result: null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -141,7 +141,7 @@ class __$$_GetCategoryResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_GetCategoryResponse implements _GetCategoryResponse {
   const _$_GetCategoryResponse(
-      {required final List<Category> categories,
+      {required final List<Category>? categories,
       required this.result,
       required this.message,
       required this.isSuccessful})
@@ -150,12 +150,14 @@ class _$_GetCategoryResponse implements _GetCategoryResponse {
   factory _$_GetCategoryResponse.fromJson(Map<String, dynamic> json) =>
       _$$_GetCategoryResponseFromJson(json);
 
-  final List<Category> _categories;
+  final List<Category>? _categories;
   @override
-  List<Category> get categories {
+  List<Category>? get categories {
+    final value = _categories;
+    if (value == null) return null;
     if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_categories);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -209,7 +211,7 @@ class _$_GetCategoryResponse implements _GetCategoryResponse {
 
 abstract class _GetCategoryResponse implements GetCategoriesResponse {
   const factory _GetCategoryResponse(
-      {required final List<Category> categories,
+      {required final List<Category>? categories,
       required final int result,
       required final String message,
       required final bool isSuccessful}) = _$_GetCategoryResponse;
@@ -218,7 +220,7 @@ abstract class _GetCategoryResponse implements GetCategoriesResponse {
       _$_GetCategoryResponse.fromJson;
 
   @override
-  List<Category> get categories;
+  List<Category>? get categories;
   @override
   int get result;
   @override

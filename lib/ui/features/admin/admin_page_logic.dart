@@ -34,7 +34,7 @@ class AdminPageLogic extends _$AdminPageLogic {
     );
   }
 
-  void setCategories(List<Category> categories) {
+  void setCategories(List<Category>? categories) {
     state = state.copyWith(
       isLoading: false,
       categories: categories,
