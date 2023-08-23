@@ -6,8 +6,8 @@ import 'package:injectable/injectable.dart';
 
 import '../../data/getstore/get_store_helper.dart';
 import '../../di/components/service_locator.dart';
+import '../../ui/features/admin/admin_page.dart';
 import '../../ui/features/info/info_screen.dart';
-import '../../ui/home/home.dart';
 import 'fade_extension.dart';
 
 GetStoreHelper getStoreHelper = getIt<GetStoreHelper>();
@@ -35,7 +35,7 @@ class SGGoRouter {
       GoRoute(
         path: SGRoute.firstScreen.route,
         builder: (BuildContext context, GoRouterState state) =>
-            const HomeScreen(),
+            const AdminPage(),
       ).fade(),
       GoRoute(
         path: SGRoute.secondScreen.route,

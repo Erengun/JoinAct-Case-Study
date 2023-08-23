@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
-import '../../../models/admin/category/delete_category_model.dart';
-import '../../../models/admin/category/update_category_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../constants/endpoints.dart';
 import '../../../models/admin/category/create_category_model.dart';
+import '../../../models/admin/category/delete_category_model.dart';
+import '../../../models/admin/category/get_category_model.dart';
+import '../../../models/admin/category/update_category_model.dart';
 import 'category/category_rest_client.dart';
 
 /// [AdminApi] is a wrapper class around [CategoryRestClient] to handle the response.
@@ -12,6 +14,21 @@ import 'category/category_rest_client.dart';
 class AdminApi {
   AdminApi(this._restClient);
   final CategoryRestClient _restClient;
+
+  Future<Either<String, GetCategoriesResponse>> getCategories() async {
+    try {
+      final GetCategoriesResponse response =
+          await _restClient.getCategories(Endpoints.devKey);
+      if (!response.isSuccessful) {
+        debugPrint(response.message);
+        return left(response.message);
+      }
+      return right(response);
+    } catch (e) {
+      debugPrint(e.toString());
+      return left(e.toString());
+    }
+  }
 
   Future<Either<String, CreateCategoryResponse>> createCategory(
     CreateCategoryRequest request,
