@@ -1,3 +1,5 @@
+import '../../../constants/endpoints.dart';
+import 'category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'create_category_model.dart';
@@ -10,7 +12,7 @@ part 'update_category_model.g.dart';
 class UpdateCategoryRequest with _$UpdateCategoryRequest {
   const factory UpdateCategoryRequest({
     required int id,
-    required String devKey,
+    @Default(Endpoints.devKey) String devKey,
     required String name,
   }) = _UpdateCategoryRequest;
 
@@ -22,7 +24,7 @@ class UpdateCategoryRequest with _$UpdateCategoryRequest {
 @freezed
 class UpdateCategoryResponse with _$UpdateCategoryResponse {
   const factory UpdateCategoryResponse({
-    required CategoryData data,
+    required Category data,
     required int result,
     required String message,
     required bool isSuccessful,

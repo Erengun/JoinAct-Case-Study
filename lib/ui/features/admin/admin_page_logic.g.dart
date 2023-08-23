@@ -23,7 +23,7 @@ final fetchCategoriesProvider =
 
 typedef FetchCategoriesRef
     = AutoDisposeFutureProviderRef<Either<String, GetCategoriesResponse>>;
-String _$adminPageLogicHash() => r'541285581ef40168034a211dd70858d4534c920f';
+String _$adminPageLogicHash() => r'af4ded4f9c555cbf20d1dcf57dbdfb4022e87b26';
 
 /// See also [AdminPageLogic].
 @ProviderFor(AdminPageLogic)

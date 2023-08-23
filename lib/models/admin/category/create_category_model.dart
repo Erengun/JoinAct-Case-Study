@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../constants/endpoints.dart';
+import 'category.dart';
+
 part 'create_category_model.freezed.dart';
 part 'create_category_model.g.dart';
 
@@ -7,7 +10,7 @@ part 'create_category_model.g.dart';
 @freezed
 class CreateCategoryRequest with _$CreateCategoryRequest {
   const factory CreateCategoryRequest({
-    required String devKey,
+    @Default(Endpoints.devKey) String devKey,
     required String name,
   }) = _CreateCategoryRequest;
 
@@ -18,7 +21,7 @@ class CreateCategoryRequest with _$CreateCategoryRequest {
 @freezed
 class CreateCategoryResponse with _$CreateCategoryResponse {
   const factory CreateCategoryResponse({
-    required CategoryData data,
+    required Category data,
     required int result,
     required String message,
     required bool isSuccessful,
@@ -26,15 +29,4 @@ class CreateCategoryResponse with _$CreateCategoryResponse {
 
   factory CreateCategoryResponse.fromJson(Map<String, dynamic> json) =>
       _$CreateCategoryResponseFromJson(json);
-}
-
-@freezed
-class CategoryData with _$CategoryData {
-  const factory CategoryData({
-    required int id,
-    required String name,
-  }) = _CategoryData;
-
-  factory CategoryData.fromJson(Map<String, dynamic> json) =>
-      _$CategoryDataFromJson(json);
 }

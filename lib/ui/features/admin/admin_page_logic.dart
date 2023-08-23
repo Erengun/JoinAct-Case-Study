@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../data/network/category_repository.dart';
 import '../../../models/admin/category/category.dart';
+import '../../../models/admin/category/create_category_model.dart';
 import '../../../models/admin/category/get_category_model.dart';
 import 'admin_page_ui_model.dart';
 
@@ -39,5 +40,14 @@ class AdminPageLogic extends _$AdminPageLogic {
       isLoading: false,
       categories: categories,
     );
+  }
+
+  void createCategory(String categoryName) {
+    state = state.copyWith(
+      isLoading: true,
+    );
+    final Future<Either<String, CreateCategoryResponse>> response = ref
+        .watch(getCategoryRepositoryProvider)
+        .createCategory(CreateCategoryRequest(name: categoryName));
   }
 }

@@ -122,7 +122,7 @@ class __$$_UpdateCategoryRequestCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UpdateCategoryRequest implements _UpdateCategoryRequest {
   const _$_UpdateCategoryRequest(
-      {required this.id, required this.devKey, required this.name});
+      {required this.id, this.devKey = Endpoints.devKey, required this.name});
 
   factory _$_UpdateCategoryRequest.fromJson(Map<String, dynamic> json) =>
       _$$_UpdateCategoryRequestFromJson(json);
@@ -130,6 +130,7 @@ class _$_UpdateCategoryRequest implements _UpdateCategoryRequest {
   @override
   final int id;
   @override
+  @JsonKey()
   final String devKey;
   @override
   final String name;
@@ -171,7 +172,7 @@ class _$_UpdateCategoryRequest implements _UpdateCategoryRequest {
 abstract class _UpdateCategoryRequest implements UpdateCategoryRequest {
   const factory _UpdateCategoryRequest(
       {required final int id,
-      required final String devKey,
+      final String devKey,
       required final String name}) = _$_UpdateCategoryRequest;
 
   factory _UpdateCategoryRequest.fromJson(Map<String, dynamic> json) =
@@ -196,7 +197,7 @@ UpdateCategoryResponse _$UpdateCategoryResponseFromJson(
 
 /// @nodoc
 mixin _$UpdateCategoryResponse {
-  CategoryData get data => throw _privateConstructorUsedError;
+  Category get data => throw _privateConstructorUsedError;
   int get result => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   bool get isSuccessful => throw _privateConstructorUsedError;
@@ -213,9 +214,9 @@ abstract class $UpdateCategoryResponseCopyWith<$Res> {
           $Res Function(UpdateCategoryResponse) then) =
       _$UpdateCategoryResponseCopyWithImpl<$Res, UpdateCategoryResponse>;
   @useResult
-  $Res call({CategoryData data, int result, String message, bool isSuccessful});
+  $Res call({Category data, int result, String message, bool isSuccessful});
 
-  $CategoryDataCopyWith<$Res> get data;
+  $CategoryCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -241,7 +242,7 @@ class _$UpdateCategoryResponseCopyWithImpl<$Res,
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as CategoryData,
+              as Category,
       result: null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -259,8 +260,8 @@ class _$UpdateCategoryResponseCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
-  $CategoryDataCopyWith<$Res> get data {
-    return $CategoryDataCopyWith<$Res>(_value.data, (value) {
+  $CategoryCopyWith<$Res> get data {
+    return $CategoryCopyWith<$Res>(_value.data, (value) {
       return _then(_value.copyWith(data: value) as $Val);
     });
   }
@@ -274,10 +275,10 @@ abstract class _$$_UpdateCategoryResponseCopyWith<$Res>
       __$$_UpdateCategoryResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({CategoryData data, int result, String message, bool isSuccessful});
+  $Res call({Category data, int result, String message, bool isSuccessful});
 
   @override
-  $CategoryDataCopyWith<$Res> get data;
+  $CategoryCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -301,7 +302,7 @@ class __$$_UpdateCategoryResponseCopyWithImpl<$Res>
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as CategoryData,
+              as Category,
       result: null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -331,7 +332,7 @@ class _$_UpdateCategoryResponse implements _UpdateCategoryResponse {
       _$$_UpdateCategoryResponseFromJson(json);
 
   @override
-  final CategoryData data;
+  final Category data;
   @override
   final int result;
   @override
@@ -378,7 +379,7 @@ class _$_UpdateCategoryResponse implements _UpdateCategoryResponse {
 
 abstract class _UpdateCategoryResponse implements UpdateCategoryResponse {
   const factory _UpdateCategoryResponse(
-      {required final CategoryData data,
+      {required final Category data,
       required final int result,
       required final String message,
       required final bool isSuccessful}) = _$_UpdateCategoryResponse;
@@ -387,7 +388,7 @@ abstract class _UpdateCategoryResponse implements UpdateCategoryResponse {
       _$_UpdateCategoryResponse.fromJson;
 
   @override
-  CategoryData get data;
+  Category get data;
   @override
   int get result;
   @override

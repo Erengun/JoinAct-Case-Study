@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../constants/endpoints.dart';
+
 part 'delete_category_model.freezed.dart';
 part 'delete_category_model.g.dart';
 
@@ -8,7 +10,7 @@ part 'delete_category_model.g.dart';
 class DeleteCategoryRequest with _$DeleteCategoryRequest {
   const factory DeleteCategoryRequest({
     required int id,
-    required String devKey,
+    @Default(Endpoints.devKey) String devKey,
   }) = _DeleteCategoryRequest;
 
   factory DeleteCategoryRequest.fromJson(Map<String, dynamic> json) =>

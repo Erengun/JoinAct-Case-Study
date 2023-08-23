@@ -10,7 +10,7 @@ _$_UpdateCategoryRequest _$$_UpdateCategoryRequestFromJson(
         Map<String, dynamic> json) =>
     _$_UpdateCategoryRequest(
       id: json['id'] as int,
-      devKey: json['devKey'] as String,
+      devKey: json['devKey'] as String? ?? Endpoints.devKey,
       name: json['name'] as String,
     );
 
@@ -25,7 +25,7 @@ Map<String, dynamic> _$$_UpdateCategoryRequestToJson(
 _$_UpdateCategoryResponse _$$_UpdateCategoryResponseFromJson(
         Map<String, dynamic> json) =>
     _$_UpdateCategoryResponse(
-      data: CategoryData.fromJson(json['data'] as Map<String, dynamic>),
+      data: Category.fromJson(json['data'] as Map<String, dynamic>),
       result: json['result'] as int,
       message: json['message'] as String,
       isSuccessful: json['isSuccessful'] as bool,

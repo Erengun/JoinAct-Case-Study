@@ -10,7 +10,7 @@ _$_DeleteCategoryRequest _$$_DeleteCategoryRequestFromJson(
         Map<String, dynamic> json) =>
     _$_DeleteCategoryRequest(
       id: json['id'] as int,
-      devKey: json['devKey'] as String,
+      devKey: json['devKey'] as String? ?? Endpoints.devKey,
     );
 
 Map<String, dynamic> _$$_DeleteCategoryRequestToJson(

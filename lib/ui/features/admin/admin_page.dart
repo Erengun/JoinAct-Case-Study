@@ -53,7 +53,18 @@ class _AdminPageState extends ConsumerState<AdminPage> {
               const Header(text: 'Admin Section'),
               const Divider(),
               const ThemeWidget(),
-              const Header(text: 'Categories'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Header(text: 'Categories'),
+                  IconButton(
+                    onPressed: () {
+                      
+                    },
+                    icon: const Icon(Ionicons.add_outline),
+                  ),
+                ],
+              ),
               if (categoryLogic.categories == null)
                 const Expanded(child: Center(child: Text('No data')))
               else

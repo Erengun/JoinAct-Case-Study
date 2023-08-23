@@ -110,7 +110,8 @@ class __$$_DeleteCategoryRequestCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_DeleteCategoryRequest implements _DeleteCategoryRequest {
-  const _$_DeleteCategoryRequest({required this.id, required this.devKey});
+  const _$_DeleteCategoryRequest(
+      {required this.id, this.devKey = Endpoints.devKey});
 
   factory _$_DeleteCategoryRequest.fromJson(Map<String, dynamic> json) =>
       _$$_DeleteCategoryRequestFromJson(json);
@@ -118,6 +119,7 @@ class _$_DeleteCategoryRequest implements _DeleteCategoryRequest {
   @override
   final int id;
   @override
+  @JsonKey()
   final String devKey;
 
   @override
@@ -155,8 +157,7 @@ class _$_DeleteCategoryRequest implements _DeleteCategoryRequest {
 
 abstract class _DeleteCategoryRequest implements DeleteCategoryRequest {
   const factory _DeleteCategoryRequest(
-      {required final int id,
-      required final String devKey}) = _$_DeleteCategoryRequest;
+      {required final int id, final String devKey}) = _$_DeleteCategoryRequest;
 
   factory _DeleteCategoryRequest.fromJson(Map<String, dynamic> json) =
       _$_DeleteCategoryRequest.fromJson;
