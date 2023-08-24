@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../admin_page.dart';
 import '../widgets/header.dart';
 
 class CategoryHeader extends StatelessWidget {
