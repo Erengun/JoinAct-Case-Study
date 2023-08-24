@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../data/network/category_repository.dart';
 import '../../../models/admin/category/category.dart';
 import '../../../models/admin/category/create_category_model.dart';
+import '../../../models/admin/category/delete_category_model.dart';
 import '../../../models/admin/category/get_category_model.dart';
 import 'admin_page_ui_model.dart';
 
@@ -35,19 +36,44 @@ class AdminPageLogic extends _$AdminPageLogic {
     );
   }
 
-  void setCategories(List<Category>? categories) {
+  void setCategories(List<Category> categories) {
     state = state.copyWith(
       isLoading: false,
       categories: categories,
     );
   }
 
-  void createCategory(String categoryName) {
+  createCategory(String categoryName) async {
     state = state.copyWith(
       isLoading: true,
     );
-    final Future<Either<String, CreateCategoryResponse>> response = ref
+    final Either<String, CreateCategoryResponse> response = await ref
         .watch(getCategoryRepositoryProvider)
         .createCategory(CreateCategoryRequest(name: categoryName));
+    response.fold((String l) => setError(l), (CreateCategoryResponse r) {
+      final List<Category> categories = state.categories;
+      categories.add(r.data);
+      state = state.copyWith(
+        isLoading: false,
+        categories: categories,
+      );
+    });
+  }
+
+  removeCategory(int categoryId) async {
+    state = state.copyWith(
+      isLoading: true,
+    );
+    final Either<String, DeleteCategoryResponse> response = await ref
+        .watch(getCategoryRepositoryProvider)
+        .deleteCategory(DeleteCategoryRequest(id: categoryId));
+    response.fold((String l) => setError(l), (DeleteCategoryResponse r) {
+      final List<Category> categories = state.categories;
+      categories.removeWhere((Category element) => element.id == categoryId);
+      state = state.copyWith(
+        isLoading: false,
+        categories: categories,
+      );
+    });
   }
 }

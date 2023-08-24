@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AdminPageUIModel {
-  List<Category>? get categories => throw _privateConstructorUsedError;
+  List<Category> get categories => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
@@ -31,7 +31,7 @@ abstract class $AdminPageUIModelCopyWith<$Res> {
           AdminPageUIModel value, $Res Function(AdminPageUIModel) then) =
       _$AdminPageUIModelCopyWithImpl<$Res, AdminPageUIModel>;
   @useResult
-  $Res call({List<Category>? categories, bool isLoading, String? errorMessage});
+  $Res call({List<Category> categories, bool isLoading, String? errorMessage});
 }
 
 /// @nodoc
@@ -47,15 +47,15 @@ class _$AdminPageUIModelCopyWithImpl<$Res, $Val extends AdminPageUIModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categories = freezed,
+    Object? categories = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
-      categories: freezed == categories
+      categories: null == categories
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
-              as List<Category>?,
+              as List<Category>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -76,7 +76,7 @@ abstract class _$$_AdminPageUIModelCopyWith<$Res>
       __$$_AdminPageUIModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Category>? categories, bool isLoading, String? errorMessage});
+  $Res call({List<Category> categories, bool isLoading, String? errorMessage});
 }
 
 /// @nodoc
@@ -90,15 +90,15 @@ class __$$_AdminPageUIModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categories = freezed,
+    Object? categories = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_$_AdminPageUIModel(
-      categories: freezed == categories
+      categories: null == categories
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
-              as List<Category>?,
+              as List<Category>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -115,20 +115,18 @@ class __$$_AdminPageUIModelCopyWithImpl<$Res>
 
 class _$_AdminPageUIModel implements _AdminPageUIModel {
   const _$_AdminPageUIModel(
-      {final List<Category>? categories = null,
+      {final List<Category> categories = const [],
       this.isLoading = false,
       this.errorMessage = null})
       : _categories = categories;
 
-  final List<Category>? _categories;
+  final List<Category> _categories;
   @override
   @JsonKey()
-  List<Category>? get categories {
-    final value = _categories;
-    if (value == null) return null;
+  List<Category> get categories {
     if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_categories);
   }
 
   @override
@@ -172,12 +170,12 @@ class _$_AdminPageUIModel implements _AdminPageUIModel {
 
 abstract class _AdminPageUIModel implements AdminPageUIModel {
   const factory _AdminPageUIModel(
-      {final List<Category>? categories,
+      {final List<Category> categories,
       final bool isLoading,
       final String? errorMessage}) = _$_AdminPageUIModel;
 
   @override
-  List<Category>? get categories;
+  List<Category> get categories;
   @override
   bool get isLoading;
   @override

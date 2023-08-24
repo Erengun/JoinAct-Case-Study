@@ -36,13 +36,13 @@ class _AdminPageState extends ConsumerState<AdminPage> {
                   .setError(errorMessage),
               (GetCategoriesResponse response) => ref
                   .read(adminPageLogicProvider.notifier)
-                  .setCategories(response.categories),
+                  .setCategories(response.data.categories),
             ));
   }
 
   @override
   Widget build(BuildContext context) {
-    final AdminPageUIModel categoryLogic = ref.read(adminPageLogicProvider);
+    final AdminPageUIModel categoryLogic = ref.watch(adminPageLogicProvider);
     return Scaffold(
         appBar: const EmptyAppBar(),
         bottomNavigationBar: const BottomNavBar(),
@@ -55,17 +55,60 @@ class _AdminPageState extends ConsumerState<AdminPage> {
               const ThemeWidget(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   const Header(text: 'Categories'),
                   IconButton(
                     onPressed: () {
-                      
+                      // add category
+                      showAdaptiveDialog(
+                          context: context,
+                          builder: (BuildContext context) => Dialog(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    const Gap(16),
+                                    const Text('Add Category'),
+                                    const Gap(16),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 16),
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          labelText: 'Category Name',
+                                        ),
+                                      ),
+                                    ),
+                                    const Gap(16),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('Add'),
+                                        ),
+                                      ],
+                                    ),
+                                    const Gap(16),
+                                  ],
+                                ),
+                              ));
                     },
                     icon: const Icon(Ionicons.add_outline),
                   ),
                 ],
               ),
-              if (categoryLogic.categories == null)
+              if ((categoryLogic.categories == null ||
+                      categoryLogic.categories!.isEmpty) &&
+                  !categoryLogic.isLoading)
                 const Expanded(child: Center(child: Text('No data')))
               else
                 categoryLogic.errorMessage != null
@@ -96,7 +139,11 @@ class _AdminPageState extends ConsumerState<AdminPage> {
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
                                 trailing: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    ref
+                                        .read(adminPageLogicProvider.notifier)
+                                        .removeCategory(category.id);
+                                  },
                                   icon: const Icon(Ionicons.trash_outline),
                                 ),
                               );
