@@ -51,7 +51,7 @@ class AdminPageLogic extends _$AdminPageLogic {
         .watch(getCategoryRepositoryProvider)
         .createCategory(CreateCategoryRequest(name: categoryName));
     response.fold((String l) => setError(l), (CreateCategoryResponse r) {
-      final List<Category> categories = state.categories;
+      final List<Category> categories = List<Category>.from(state.categories);
       categories.add(r.data);
       state = state.copyWith(
         isLoading: false,
@@ -68,7 +68,7 @@ class AdminPageLogic extends _$AdminPageLogic {
         .watch(getCategoryRepositoryProvider)
         .deleteCategory(DeleteCategoryRequest(id: categoryId));
     response.fold((String l) => setError(l), (DeleteCategoryResponse r) {
-      final List<Category> categories = state.categories;
+      final List<Category> categories = List<Category>.from(state.categories);
       categories.removeWhere((Category element) => element.id == categoryId);
       state = state.copyWith(
         isLoading: false,

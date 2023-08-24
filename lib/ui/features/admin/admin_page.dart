@@ -62,52 +62,15 @@ class _AdminPageState extends ConsumerState<AdminPage> {
                       // add category
                       showAdaptiveDialog(
                           context: context,
-                          builder: (BuildContext context) => Dialog(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    const Gap(16),
-                                    const Text('Add Category'),
-                                    const Gap(16),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 16),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          labelText: 'Category Name',
-                                        ),
-                                      ),
-                                    ),
-                                    const Gap(16),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Cancel'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Add'),
-                                        ),
-                                      ],
-                                    ),
-                                    const Gap(16),
-                                  ],
-                                ),
-                              ));
+                          builder: (BuildContext context) =>
+                              const CreateCategoryDialog());
                     },
                     icon: const Icon(Ionicons.add_outline),
                   ),
                 ],
               ),
               if ((categoryLogic.categories == null ||
-                      categoryLogic.categories!.isEmpty) &&
+                      categoryLogic.categories.isEmpty) &&
                   !categoryLogic.isLoading)
                 const Expanded(child: Center(child: Text('No data')))
               else
@@ -125,31 +88,92 @@ class _AdminPageState extends ConsumerState<AdminPage> {
                             child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: ListView.builder(
+                                itemCount: categoryLogic.categories.length,
                                 itemBuilder: (BuildContext context, int index) {
-                              final Category category =
-                                  categoryLogic.categories![index];
-                              return ListTile(
-                                title: Text(
-                                  category.id.toString(),
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                                subtitle: Text(
-                                  category.name,
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
-                                ),
-                                trailing: IconButton(
-                                  onPressed: () {
-                                    ref
-                                        .read(adminPageLogicProvider.notifier)
-                                        .removeCategory(category.id);
-                                  },
-                                  icon: const Icon(Ionicons.trash_outline),
-                                ),
-                              );
-                            }),
+                                  final Category category =
+                                      categoryLogic.categories[index];
+                                  return ListTile(
+                                    title: Text(
+                                      category.id.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                    ),
+                                    subtitle: Text(
+                                      category.name,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                    trailing: IconButton(
+                                      onPressed: () {
+                                        ref
+                                            .read(
+                                                adminPageLogicProvider.notifier)
+                                            .removeCategory(category.id);
+                                      },
+                                      icon: const Icon(Ionicons.trash_outline),
+                                    ),
+                                  );
+                                }),
                           ))
             ]));
+  }
+}
+
+class CreateCategoryDialog extends ConsumerWidget {
+  const CreateCategoryDialog({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final TextEditingController nameController = TextEditingController();
+    return Dialog(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const Gap(16),
+          const Text('Add Category'),
+          const Gap(16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: TextField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Category Name',
+              ),
+            ),
+          ),
+          const Gap(16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  if (nameController.text.isEmpty) {
+                    return;
+                  }
+                  ref
+                      .read(adminPageLogicProvider.notifier)
+                      .createCategory(nameController.text);
+                  Navigator.pop(context);
+                },
+                child: const Text('Add'),
+              ),
+            ],
+          ),
+          const Gap(16),
+        ],
+      ),
+    );
   }
 }
 
