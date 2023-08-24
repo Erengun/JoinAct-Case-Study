@@ -1,20 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fpdart/src/either.dart';
-import 'package:gap/gap.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:fpdart/fpdart.dart';
 
 import '../../../../utils/context_extensions.dart';
 
-import '../../../models/admin/category/category.dart';
 import '../../../models/admin/category/get_category_model.dart';
 import '../../widgets/app_bar_gone.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import 'admin_page_logic.dart';
 import 'admin_page_ui_model.dart';
+import 'categories/category_header.dart';
+import 'categories/category_list_view.dart';
+import 'categories/create_category_dialog.dart';
 import 'widgets/header.dart';
-import 'widgets/social_tile_widget.dart';
 import 'widgets/theme_widget.dart';
 
 class AdminPage extends ConsumerStatefulWidget {
@@ -44,133 +43,39 @@ class _AdminPageState extends ConsumerState<AdminPage> {
   Widget build(BuildContext context) {
     final AdminPageUIModel categoryLogic = ref.watch(adminPageLogicProvider);
     return Scaffold(
-        appBar: const EmptyAppBar(),
-        bottomNavigationBar: const BottomNavBar(),
-        backgroundColor: context.colorScheme.background,
-        body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const Header(text: 'Admin Section'),
-              const Divider(),
-              const ThemeWidget(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  const Header(text: 'Categories'),
-                  IconButton(
-                    onPressed: () {
-                      // add category
-                      showAdaptiveDialog(
-                          context: context,
-                          builder: (BuildContext context) =>
-                              const CreateCategoryDialog());
-                    },
-                    icon: const Icon(Ionicons.add_outline),
-                  ),
-                ],
-              ),
-              if ((categoryLogic.categories == null ||
-                      categoryLogic.categories.isEmpty) &&
-                  !categoryLogic.isLoading)
-                const Expanded(child: Center(child: Text('No data')))
-              else
-                categoryLogic.errorMessage != null
-                    ? Center(
-                        child: Text(
-                          categoryLogic.errorMessage!,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      )
-                    : categoryLogic.isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : // show Categories
-                        Expanded(
-                            child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: ListView.builder(
-                                itemCount: categoryLogic.categories.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final Category category =
-                                      categoryLogic.categories[index];
-                                  return ListTile(
-                                    title: Text(
-                                      category.id.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge,
-                                    ),
-                                    subtitle: Text(
-                                      category.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
-                                    ),
-                                    trailing: IconButton(
-                                      onPressed: () {
-                                        ref
-                                            .read(
-                                                adminPageLogicProvider.notifier)
-                                            .removeCategory(category.id);
-                                      },
-                                      icon: const Icon(Ionicons.trash_outline),
-                                    ),
-                                  );
-                                }),
-                          ))
-            ]));
-  }
-}
-
-class CreateCategoryDialog extends ConsumerWidget {
-  const CreateCategoryDialog({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final TextEditingController nameController = TextEditingController();
-    return Dialog(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+      appBar: const EmptyAppBar(),
+      bottomNavigationBar: const BottomNavBar(),
+      backgroundColor: context.colorScheme.background,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Gap(16),
-          const Text('Add Category'),
-          const Gap(16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: TextField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Category Name',
-              ),
-            ),
+          const Header(text: 'Admin Section'),
+          const Divider(),
+          const ThemeWidget(),
+          const LanguageTile(),
+          CategoryHeader(
+            header: 'Categories',
+            onPressed: () => showAdaptiveDialog(
+                context: context,
+                builder: (BuildContext context) =>
+                    const CreateCategoryDialog()),
           ),
-          const Gap(16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  if (nameController.text.isEmpty) {
-                    return;
-                  }
-                  ref
-                      .read(adminPageLogicProvider.notifier)
-                      .createCategory(nameController.text);
-                  Navigator.pop(context);
-                },
-                child: const Text('Add'),
-              ),
-            ],
-          ),
-          const Gap(16),
+          if ((categoryLogic.categories == null ||
+                  categoryLogic.categories.isEmpty) &&
+              !categoryLogic.isLoading)
+            const Expanded(child: Center(child: Text('No data')))
+          else
+            categoryLogic.errorMessage != null
+                ? Center(
+                    child: Text(
+                      categoryLogic.errorMessage!,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  )
+                : categoryLogic.isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : // show Categories
+                    const CategoryListView(),
         ],
       ),
     );
