@@ -17,9 +17,10 @@ import 'package:injectable/injectable.dart' as _i2;
 import '../../config/router/app_router.dart' as _i6;
 import '../../data/getstore/get_store_helper.dart' as _i4;
 import '../../data/hive/hive_helper.dart' as _i5;
-import '../../data/network/admin/admin_api.dart' as _i9;
-import '../../data/network/admin/category/category_rest_client.dart' as _i8;
-import '../module/network_module.dart' as _i10;
+import '../../data/network/admin/admin_api.dart' as _i10;
+import '../../data/network/admin/category/category_rest_client.dart' as _i9;
+import '../../data/network/admin/product/product_rest_client.dart' as _i8;
+import '../module/network_module.dart' as _i11;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -45,13 +46,20 @@ extension GetItInjectableX on _i1.GetIt {
       () => networkModule.provideDio(gh<_i4.GetStoreHelper>()),
       preResolve: true,
     );
-    await gh.factoryAsync<_i8.CategoryRestClient>(
+    await gh.factoryAsync<_i8.ProductRestClient>(
+      () => networkModule.provideProductRestClient(gh<_i7.Dio>()),
+      preResolve: true,
+    );
+    await gh.factoryAsync<_i9.CategoryRestClient>(
       () => networkModule.provideCategoryRestClient(gh<_i7.Dio>()),
       preResolve: true,
     );
-    gh.factory<_i9.AdminApi>(() => _i9.AdminApi(gh<_i8.CategoryRestClient>()));
+    gh.factory<_i10.AdminApi>(() => _i10.AdminApi(
+          gh<_i9.CategoryRestClient>(),
+          gh<_i8.ProductRestClient>(),
+        ));
     return this;
   }
 }
 
-class _$NetworkModule extends _i10.NetworkModule {}
+class _$NetworkModule extends _i11.NetworkModule {}
