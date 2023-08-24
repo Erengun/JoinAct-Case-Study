@@ -28,7 +28,7 @@ abstract class NetworkModule {
           const Duration(milliseconds: Endpoints.receiveTimeout)
       // ignore: always_specify_types
       ..options.headers = {
-        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json',
         'accept': 'text/plain'
       }
       ..interceptors.add(LogInterceptor(

@@ -21,11 +21,11 @@ class _CategoryRestClient implements CategoryRestClient {
   String? baseUrl;
 
   @override
-  Future<GetCategoriesResponse> getCategories(String devKey) async {
+  Future<GetCategoriesResponse> getCategories(GetCategoriesRequest body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = devKey;
+    final _data = body;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<GetCategoriesResponse>(Options(
       method: 'POST',
@@ -53,8 +53,7 @@ class _CategoryRestClient implements CategoryRestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
+    final _data = request;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CreateCategoryResponse>(Options(
       method: 'POST',
@@ -82,8 +81,7 @@ class _CategoryRestClient implements CategoryRestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
+    final _data = request;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<UpdateCategoryResponse>(Options(
       method: 'POST',
@@ -111,8 +109,7 @@ class _CategoryRestClient implements CategoryRestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
+    final _data = request;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<DeleteCategoryResponse>(Options(
       method: 'POST',

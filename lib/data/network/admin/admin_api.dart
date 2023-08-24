@@ -18,9 +18,10 @@ class AdminApi {
   Future<Either<String, GetCategoriesResponse>> getCategories() async {
     try {
       final GetCategoriesResponse response =
-          await _restClient.getCategories(Endpoints.devKey);
-      if (!response.isSuccessful) {
+          await _restClient.getCategories(const GetCategoriesRequest());
+      if (response.isSuccessful == false) {
         debugPrint(response.message);
+        debugPrint('GetCategoriesResponse is not successful');
         return left(response.message);
       }
       return right(response);

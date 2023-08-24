@@ -15,7 +15,7 @@ abstract class CategoryRestClient {
 
   @POST('/GetCategories')
   Future<GetCategoriesResponse> getCategories(
-    @Body() String devKey,
+    @Body() GetCategoriesRequest body,
   );
 
   @POST('/CreateCategory')
