@@ -1,10 +1,10 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../di/components/service_locator.dart';
-import '../../models/admin/category/category.dart';
 import '../../models/admin/category/create_category_model.dart';
+import '../../models/admin/category/delete_category_model.dart';
 import '../../models/admin/category/get_category_model.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../models/admin/category/update_category_model.dart';
 import 'admin/admin_api.dart';
 
@@ -34,6 +34,14 @@ class CategoryRepository {
       UpdateCategoryRequest request) async {
     final Either<String, UpdateCategoryResponse> response =
         await api.updateCategory(request);
+    return response;
+  }
+
+  // delete category
+  Future<Either<String, DeleteCategoryResponse>> deleteCategory(
+      DeleteCategoryRequest request) async {
+    final Either<String, DeleteCategoryResponse> response =
+        await api.deleteCategory(request);
     return response;
   }
 }
