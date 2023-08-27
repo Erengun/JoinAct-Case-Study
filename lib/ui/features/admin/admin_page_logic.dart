@@ -35,6 +35,8 @@ Future<Either<String, GetProductsResponse>> fetchProducts(
   return response;
 }
 
+//! TODO: add currency
+
 @riverpod
 class AdminPageLogic extends _$AdminPageLogic {
   @override
