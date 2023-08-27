@@ -21,9 +21,7 @@ Map<String, dynamic> _$$_GetProductsRequestToJson(
 _$_GetProductsResponse _$$_GetProductsResponseFromJson(
         Map<String, dynamic> json) =>
     _$_GetProductsResponse(
-      products: (json['products'] as List<dynamic>)
-          .map((e) => Product.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      data: ProductData.fromJson(json['data'] as Map<String, dynamic>),
       result: json['result'] as int,
       message: json['message'] as String,
       isSuccessful: json['isSuccessful'] as bool,
@@ -32,8 +30,20 @@ _$_GetProductsResponse _$$_GetProductsResponseFromJson(
 Map<String, dynamic> _$$_GetProductsResponseToJson(
         _$_GetProductsResponse instance) =>
     <String, dynamic>{
-      'products': instance.products,
+      'data': instance.data,
       'result': instance.result,
       'message': instance.message,
       'isSuccessful': instance.isSuccessful,
+    };
+
+_$_ProductData _$$_ProductDataFromJson(Map<String, dynamic> json) =>
+    _$_ProductData(
+      products: (json['products'] as List<dynamic>)
+          .map((e) => Product.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$_ProductDataToJson(_$_ProductData instance) =>
+    <String, dynamic>{
+      'products': instance.products,
     };

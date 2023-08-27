@@ -23,7 +23,24 @@ final fetchCategoriesProvider =
 
 typedef FetchCategoriesRef
     = AutoDisposeFutureProviderRef<Either<String, GetCategoriesResponse>>;
-String _$adminPageLogicHash() => r'05f8cb946b9d843237fc99d4293d77e7e27e2737';
+String _$fetchProductsHash() => r'9d14f0b0caaaddbe3f3c9a86d6cf8da376d10240';
+
+/// See also [fetchProducts].
+@ProviderFor(fetchProducts)
+final fetchProductsProvider =
+    AutoDisposeFutureProvider<Either<String, GetProductsResponse>>.internal(
+  fetchProducts,
+  name: r'fetchProductsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fetchProductsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FetchProductsRef
+    = AutoDisposeFutureProviderRef<Either<String, GetProductsResponse>>;
+String _$adminPageLogicHash() => r'6c1d5531047134b8f442e7e43af8a8822b8f9458';
 
 /// See also [AdminPageLogic].
 @ProviderFor(AdminPageLogic)

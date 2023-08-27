@@ -19,7 +19,7 @@ class GetProductsRequest with _$GetProductsRequest {
 @freezed
 class GetProductsResponse with _$GetProductsResponse {
   const factory GetProductsResponse({
-    required List<Product> products,
+    required ProductData data,
     required int result,
     required String message,
     required bool isSuccessful,
@@ -27,5 +27,15 @@ class GetProductsResponse with _$GetProductsResponse {
 
   factory GetProductsResponse.fromJson(Map<String, dynamic> json) =>
       _$GetProductsResponseFromJson(json);
+}
+
+@freezed
+class ProductData with _$ProductData {
+  const factory ProductData({
+    required List<Product> products,
+  }) = _ProductData;
+
+  factory ProductData.fromJson(Map<String, dynamic> json) =>
+      _$ProductDataFromJson(json);
 }
 

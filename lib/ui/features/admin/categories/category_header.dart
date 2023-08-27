@@ -3,8 +3,8 @@ import 'package:ionicons/ionicons.dart';
 
 import '../widgets/header.dart';
 
-class CategoryHeader extends StatelessWidget {
-  const CategoryHeader({
+class RowHeader extends StatelessWidget {
+  const RowHeader({
     super.key,
     required this.header,
     required this.onPressed,

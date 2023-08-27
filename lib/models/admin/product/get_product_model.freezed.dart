@@ -159,7 +159,7 @@ GetProductsResponse _$GetProductsResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$GetProductsResponse {
-  List<Product> get products => throw _privateConstructorUsedError;
+  ProductData get data => throw _privateConstructorUsedError;
   int get result => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   bool get isSuccessful => throw _privateConstructorUsedError;
@@ -176,8 +176,9 @@ abstract class $GetProductsResponseCopyWith<$Res> {
           GetProductsResponse value, $Res Function(GetProductsResponse) then) =
       _$GetProductsResponseCopyWithImpl<$Res, GetProductsResponse>;
   @useResult
-  $Res call(
-      {List<Product> products, int result, String message, bool isSuccessful});
+  $Res call({ProductData data, int result, String message, bool isSuccessful});
+
+  $ProductDataCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -193,16 +194,16 @@ class _$GetProductsResponseCopyWithImpl<$Res, $Val extends GetProductsResponse>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? products = null,
+    Object? data = null,
     Object? result = null,
     Object? message = null,
     Object? isSuccessful = null,
   }) {
     return _then(_value.copyWith(
-      products: null == products
-          ? _value.products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<Product>,
+      data: null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as ProductData,
       result: null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -217,6 +218,14 @@ class _$GetProductsResponseCopyWithImpl<$Res, $Val extends GetProductsResponse>
               as bool,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductDataCopyWith<$Res> get data {
+    return $ProductDataCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -227,8 +236,10 @@ abstract class _$$_GetProductsResponseCopyWith<$Res>
       __$$_GetProductsResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<Product> products, int result, String message, bool isSuccessful});
+  $Res call({ProductData data, int result, String message, bool isSuccessful});
+
+  @override
+  $ProductDataCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -242,16 +253,16 @@ class __$$_GetProductsResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? products = null,
+    Object? data = null,
     Object? result = null,
     Object? message = null,
     Object? isSuccessful = null,
   }) {
     return _then(_$_GetProductsResponse(
-      products: null == products
-          ? _value._products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<Product>,
+      data: null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as ProductData,
       result: null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -272,23 +283,16 @@ class __$$_GetProductsResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_GetProductsResponse implements _GetProductsResponse {
   const _$_GetProductsResponse(
-      {required final List<Product> products,
+      {required this.data,
       required this.result,
       required this.message,
-      required this.isSuccessful})
-      : _products = products;
+      required this.isSuccessful});
 
   factory _$_GetProductsResponse.fromJson(Map<String, dynamic> json) =>
       _$$_GetProductsResponseFromJson(json);
 
-  final List<Product> _products;
   @override
-  List<Product> get products {
-    if (_products is EqualUnmodifiableListView) return _products;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_products);
-  }
-
+  final ProductData data;
   @override
   final int result;
   @override
@@ -298,7 +302,7 @@ class _$_GetProductsResponse implements _GetProductsResponse {
 
   @override
   String toString() {
-    return 'GetProductsResponse(products: $products, result: $result, message: $message, isSuccessful: $isSuccessful)';
+    return 'GetProductsResponse(data: $data, result: $result, message: $message, isSuccessful: $isSuccessful)';
   }
 
   @override
@@ -306,7 +310,7 @@ class _$_GetProductsResponse implements _GetProductsResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetProductsResponse &&
-            const DeepCollectionEquality().equals(other._products, _products) &&
+            (identical(other.data, data) || other.data == data) &&
             (identical(other.result, result) || other.result == result) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.isSuccessful, isSuccessful) ||
@@ -315,12 +319,8 @@ class _$_GetProductsResponse implements _GetProductsResponse {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_products),
-      result,
-      message,
-      isSuccessful);
+  int get hashCode =>
+      Object.hash(runtimeType, data, result, message, isSuccessful);
 
   @JsonKey(ignore: true)
   @override
@@ -339,7 +339,7 @@ class _$_GetProductsResponse implements _GetProductsResponse {
 
 abstract class _GetProductsResponse implements GetProductsResponse {
   const factory _GetProductsResponse(
-      {required final List<Product> products,
+      {required final ProductData data,
       required final int result,
       required final String message,
       required final bool isSuccessful}) = _$_GetProductsResponse;
@@ -348,7 +348,7 @@ abstract class _GetProductsResponse implements GetProductsResponse {
       _$_GetProductsResponse.fromJson;
 
   @override
-  List<Product> get products;
+  ProductData get data;
   @override
   int get result;
   @override
@@ -358,5 +358,149 @@ abstract class _GetProductsResponse implements GetProductsResponse {
   @override
   @JsonKey(ignore: true)
   _$$_GetProductsResponseCopyWith<_$_GetProductsResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ProductData _$ProductDataFromJson(Map<String, dynamic> json) {
+  return _ProductData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ProductData {
+  List<Product> get products => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ProductDataCopyWith<ProductData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProductDataCopyWith<$Res> {
+  factory $ProductDataCopyWith(
+          ProductData value, $Res Function(ProductData) then) =
+      _$ProductDataCopyWithImpl<$Res, ProductData>;
+  @useResult
+  $Res call({List<Product> products});
+}
+
+/// @nodoc
+class _$ProductDataCopyWithImpl<$Res, $Val extends ProductData>
+    implements $ProductDataCopyWith<$Res> {
+  _$ProductDataCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? products = null,
+  }) {
+    return _then(_value.copyWith(
+      products: null == products
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<Product>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_ProductDataCopyWith<$Res>
+    implements $ProductDataCopyWith<$Res> {
+  factory _$$_ProductDataCopyWith(
+          _$_ProductData value, $Res Function(_$_ProductData) then) =
+      __$$_ProductDataCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Product> products});
+}
+
+/// @nodoc
+class __$$_ProductDataCopyWithImpl<$Res>
+    extends _$ProductDataCopyWithImpl<$Res, _$_ProductData>
+    implements _$$_ProductDataCopyWith<$Res> {
+  __$$_ProductDataCopyWithImpl(
+      _$_ProductData _value, $Res Function(_$_ProductData) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? products = null,
+  }) {
+    return _then(_$_ProductData(
+      products: null == products
+          ? _value._products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<Product>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_ProductData implements _ProductData {
+  const _$_ProductData({required final List<Product> products})
+      : _products = products;
+
+  factory _$_ProductData.fromJson(Map<String, dynamic> json) =>
+      _$$_ProductDataFromJson(json);
+
+  final List<Product> _products;
+  @override
+  List<Product> get products {
+    if (_products is EqualUnmodifiableListView) return _products;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_products);
+  }
+
+  @override
+  String toString() {
+    return 'ProductData(products: $products)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ProductData &&
+            const DeepCollectionEquality().equals(other._products, _products));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_products));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ProductDataCopyWith<_$_ProductData> get copyWith =>
+      __$$_ProductDataCopyWithImpl<_$_ProductData>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ProductDataToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ProductData implements ProductData {
+  const factory _ProductData({required final List<Product> products}) =
+      _$_ProductData;
+
+  factory _ProductData.fromJson(Map<String, dynamic> json) =
+      _$_ProductData.fromJson;
+
+  @override
+  List<Product> get products;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ProductDataCopyWith<_$_ProductData> get copyWith =>
       throw _privateConstructorUsedError;
 }

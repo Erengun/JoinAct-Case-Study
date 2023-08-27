@@ -2,10 +2,14 @@ import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../data/network/category_repository.dart';
+import '../../../data/network/product_repository.dart';
 import '../../../models/admin/category/category.dart';
 import '../../../models/admin/category/create_category_model.dart';
 import '../../../models/admin/category/delete_category_model.dart';
 import '../../../models/admin/category/get_category_model.dart';
+import '../../../models/admin/product/create_product_model.dart';
+import '../../../models/admin/product/get_product_model.dart';
+import '../../../models/admin/product/product.dart';
 import 'admin_page_ui_model.dart';
 
 part 'admin_page_logic.g.dart';
@@ -17,6 +21,16 @@ Future<Either<String, GetCategoriesResponse>> fetchCategories(
       ref.watch(getCategoryRepositoryProvider);
   final Either<String, GetCategoriesResponse> response =
       await categoryRepository.getCategories();
+  return response;
+}
+
+@riverpod
+Future<Either<String, GetProductsResponse>> fetchProducts(
+    FetchProductsRef ref) async {
+  final ProductRepository productRepository =
+      ref.watch(getProductRepositoryProvider);
+  final Either<String, GetProductsResponse> response =
+      await productRepository.getProducts();
   return response;
 }
 
@@ -42,6 +56,21 @@ class AdminPageLogic extends _$AdminPageLogic {
       categories: categories,
     );
   }
+
+  void setSelectedCategory(Category category) {
+    state = state.copyWith(
+      selectedCategory: category,
+    );
+  }
+
+  void setProducts(List<Product> products) {
+    state = state.copyWith(
+      isLoading: false,
+      products: products,
+    );
+  }
+
+  // category
 
   createCategory(String categoryName) async {
     state = state.copyWith(
@@ -73,6 +102,25 @@ class AdminPageLogic extends _$AdminPageLogic {
       state = state.copyWith(
         isLoading: false,
         categories: categories,
+      );
+    });
+  }
+
+  // product
+
+  createProduct(CreateProductRequest request) async {
+    state = state.copyWith(
+      isLoading: true,
+    );
+    final Either<String, CreateProductResponse> response = await ref
+        .watch(getProductRepositoryProvider)
+        .createProduct(request);
+    response.fold((String l) => setError(l), (CreateProductResponse r) {
+      final List<Product> products = List<Product>.from(state.products);
+      products.add(r.data);
+      state = state.copyWith(
+        isLoading: false,
+        products: products,
       );
     });
   }
