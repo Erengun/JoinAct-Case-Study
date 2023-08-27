@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AdminPageUIModel {
   List<Category> get categories => throw _privateConstructorUsedError;
   List<Product> get products => throw _privateConstructorUsedError;
+  Map<int, List<Product>> get productsMap => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   Category? get selectedCategory => throw _privateConstructorUsedError;
@@ -36,6 +37,7 @@ abstract class $AdminPageUIModelCopyWith<$Res> {
   $Res call(
       {List<Category> categories,
       List<Product> products,
+      Map<int, List<Product>> productsMap,
       bool isLoading,
       String? errorMessage,
       Category? selectedCategory});
@@ -58,6 +60,7 @@ class _$AdminPageUIModelCopyWithImpl<$Res, $Val extends AdminPageUIModel>
   $Res call({
     Object? categories = null,
     Object? products = null,
+    Object? productsMap = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
     Object? selectedCategory = freezed,
@@ -71,6 +74,10 @@ class _$AdminPageUIModelCopyWithImpl<$Res, $Val extends AdminPageUIModel>
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      productsMap: null == productsMap
+          ? _value.productsMap
+          : productsMap // ignore: cast_nullable_to_non_nullable
+              as Map<int, List<Product>>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -110,6 +117,7 @@ abstract class _$$_AdminPageUIModelCopyWith<$Res>
   $Res call(
       {List<Category> categories,
       List<Product> products,
+      Map<int, List<Product>> productsMap,
       bool isLoading,
       String? errorMessage,
       Category? selectedCategory});
@@ -131,6 +139,7 @@ class __$$_AdminPageUIModelCopyWithImpl<$Res>
   $Res call({
     Object? categories = null,
     Object? products = null,
+    Object? productsMap = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
     Object? selectedCategory = freezed,
@@ -144,6 +153,10 @@ class __$$_AdminPageUIModelCopyWithImpl<$Res>
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      productsMap: null == productsMap
+          ? _value._productsMap
+          : productsMap // ignore: cast_nullable_to_non_nullable
+              as Map<int, List<Product>>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -166,11 +179,13 @@ class _$_AdminPageUIModel implements _AdminPageUIModel {
   const _$_AdminPageUIModel(
       {final List<Category> categories = const [],
       final List<Product> products = const [],
+      final Map<int, List<Product>> productsMap = const {},
       this.isLoading = false,
       this.errorMessage = null,
       this.selectedCategory = null})
       : _categories = categories,
-        _products = products;
+        _products = products,
+        _productsMap = productsMap;
 
   final List<Category> _categories;
   @override
@@ -190,6 +205,15 @@ class _$_AdminPageUIModel implements _AdminPageUIModel {
     return EqualUnmodifiableListView(_products);
   }
 
+  final Map<int, List<Product>> _productsMap;
+  @override
+  @JsonKey()
+  Map<int, List<Product>> get productsMap {
+    if (_productsMap is EqualUnmodifiableMapView) return _productsMap;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_productsMap);
+  }
+
   @override
   @JsonKey()
   final bool isLoading;
@@ -202,7 +226,7 @@ class _$_AdminPageUIModel implements _AdminPageUIModel {
 
   @override
   String toString() {
-    return 'AdminPageUIModel(categories: $categories, products: $products, isLoading: $isLoading, errorMessage: $errorMessage, selectedCategory: $selectedCategory)';
+    return 'AdminPageUIModel(categories: $categories, products: $products, productsMap: $productsMap, isLoading: $isLoading, errorMessage: $errorMessage, selectedCategory: $selectedCategory)';
   }
 
   @override
@@ -213,6 +237,8 @@ class _$_AdminPageUIModel implements _AdminPageUIModel {
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             const DeepCollectionEquality().equals(other._products, _products) &&
+            const DeepCollectionEquality()
+                .equals(other._productsMap, _productsMap) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -226,6 +252,7 @@ class _$_AdminPageUIModel implements _AdminPageUIModel {
       runtimeType,
       const DeepCollectionEquality().hash(_categories),
       const DeepCollectionEquality().hash(_products),
+      const DeepCollectionEquality().hash(_productsMap),
       isLoading,
       errorMessage,
       selectedCategory);
@@ -241,6 +268,7 @@ abstract class _AdminPageUIModel implements AdminPageUIModel {
   const factory _AdminPageUIModel(
       {final List<Category> categories,
       final List<Product> products,
+      final Map<int, List<Product>> productsMap,
       final bool isLoading,
       final String? errorMessage,
       final Category? selectedCategory}) = _$_AdminPageUIModel;
@@ -249,6 +277,8 @@ abstract class _AdminPageUIModel implements AdminPageUIModel {
   List<Category> get categories;
   @override
   List<Product> get products;
+  @override
+  Map<int, List<Product>> get productsMap;
   @override
   bool get isLoading;
   @override

@@ -8,6 +8,7 @@ import '../../../models/admin/category/create_category_model.dart';
 import '../../../models/admin/category/delete_category_model.dart';
 import '../../../models/admin/category/get_category_model.dart';
 import '../../../models/admin/product/create_product_model.dart';
+import '../../../models/admin/product/delete_product_model.dart';
 import '../../../models/admin/product/get_product_model.dart';
 import '../../../models/admin/product/product.dart';
 import 'admin_page_ui_model.dart';
@@ -68,6 +69,28 @@ class AdminPageLogic extends _$AdminPageLogic {
       isLoading: false,
       products: products,
     );
+    // if categories is not empty, then we can set productsMap
+    if (state.categories.isNotEmpty) {
+      setProductsMap(_getProductsMap(products));
+    }
+  }
+
+  Map<int, List<Product>> _getProductsMap(List<Product> products) {
+    final Map<int, List<Product>> productsMap = <int, List<Product>>{};
+    for (final Category category in state.categories) {
+      final List<Product> productsByCategory = products
+          .where((Product product) => product.categoryId == category.id)
+          .toList();
+      productsMap[category.id] = productsByCategory;
+    }
+    return productsMap;
+  }
+
+  void setProductsMap(Map<int, List<Product>> productsMap) {
+    state = state.copyWith(
+      isLoading: false,
+      productsMap: productsMap,
+    );
   }
 
   // category
@@ -86,6 +109,7 @@ class AdminPageLogic extends _$AdminPageLogic {
         isLoading: false,
         categories: categories,
       );
+      setProductsMap(_getProductsMap(state.products));
     });
   }
 
@@ -112,9 +136,8 @@ class AdminPageLogic extends _$AdminPageLogic {
     state = state.copyWith(
       isLoading: true,
     );
-    final Either<String, CreateProductResponse> response = await ref
-        .watch(getProductRepositoryProvider)
-        .createProduct(request);
+    final Either<String, CreateProductResponse> response =
+        await ref.watch(getProductRepositoryProvider).createProduct(request);
     response.fold((String l) => setError(l), (CreateProductResponse r) {
       final List<Product> products = List<Product>.from(state.products);
       products.add(r.data);
@@ -122,6 +145,25 @@ class AdminPageLogic extends _$AdminPageLogic {
         isLoading: false,
         products: products,
       );
+      setProductsMap(_getProductsMap(state.products));
+    });
+  }
+
+  removeProduct(int productId) async {
+    state = state.copyWith(
+      isLoading: true,
+    );
+    final Either<String, DeleteProductResponse> response = await ref
+        .watch(getProductRepositoryProvider)
+        .deleteProduct(DeleteProductRequest(id: productId));
+    response.fold((String l) => setError(l), (DeleteProductResponse r) {
+      final List<Product> products = List<Product>.from(state.products);
+      products.removeWhere((Product element) => element.id == productId);
+      state = state.copyWith(
+        isLoading: false,
+        products: products,
+      );
+      setProductsMap(_getProductsMap(state.products));
     });
   }
 }

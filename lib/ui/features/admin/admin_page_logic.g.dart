@@ -40,7 +40,7 @@ final fetchProductsProvider =
 
 typedef FetchProductsRef
     = AutoDisposeFutureProviderRef<Either<String, GetProductsResponse>>;
-String _$adminPageLogicHash() => r'6c1d5531047134b8f442e7e43af8a8822b8f9458';
+String _$adminPageLogicHash() => r'f45a56bd5431f989f601aeadd86384416190e086';
 
 /// See also [AdminPageLogic].
 @ProviderFor(AdminPageLogic)

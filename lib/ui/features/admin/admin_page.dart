@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,19 +7,17 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../../../utils/context_extensions.dart';
 
-import '../../../constants/endpoints.dart';
 import '../../../models/admin/category/category.dart';
 import '../../../models/admin/category/get_category_model.dart';
-import '../../../models/admin/product/create_product_model.dart';
 import '../../../models/admin/product/get_product_model.dart';
 import '../../../models/admin/product/product.dart';
 import '../../widgets/app_bar_gone.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import 'admin_page_logic.dart';
 import 'admin_page_ui_model.dart';
-import 'categories/category_header.dart';
-import 'categories/category_list_view.dart';
 import 'categories/create_category_dialog.dart';
+import 'products/create_product_dialog.dart';
+import 'products/product_card.dart';
 import 'widgets/header.dart';
 import 'widgets/theme_widget.dart';
 
@@ -33,16 +32,26 @@ class _AdminPageState extends ConsumerState<AdminPage> {
   @override
   void initState() {
     super.initState();
-    ref
-        .read(fetchCategoriesProvider.future)
-        .then((Either<String, GetCategoriesResponse> response) => response.fold(
-              (String errorMessage) => ref
-                  .read(adminPageLogicProvider.notifier)
-                  .setError(errorMessage),
-              (GetCategoriesResponse response) => ref
-                  .read(adminPageLogicProvider.notifier)
-                  .setCategories(response.data.categories),
-            ));
+    ref.read(fetchCategoriesProvider.future).then(
+        (Either<String, GetCategoriesResponse> response) => response.fold(
+                (String errorMessage) {
+              ref.read(adminPageLogicProvider.notifier).setError(errorMessage);
+              final SnackBar snackBar = SnackBar(
+                elevation: 0,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.transparent,
+                content: AwesomeSnackbarContent(
+                    title: 'Unlucky'.tr(),
+                    message: 'api_error'.tr(),
+                    contentType: ContentType.failure),
+              );
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(snackBar);
+            },
+                (GetCategoriesResponse response) => ref
+                    .read(adminPageLogicProvider.notifier)
+                    .setCategories(response.data.categories)));
     ref
         .read(fetchProductsProvider.future)
         .then((Either<String, GetProductsResponse> response) => response.fold(
@@ -67,30 +76,7 @@ class _AdminPageState extends ConsumerState<AdminPage> {
           showModalBottomSheet<void>(
             context: context,
             builder: (BuildContext context) {
-              return Container(
-                child: Wrap(
-                  children: <Widget>[
-                    ListTile(
-                      leading: const Icon(Icons.category),
-                      title: const Text('Add Category'),
-                      onTap: () => showAdaptiveDialog(
-                          context: context,
-                          builder: (BuildContext context) =>
-                              const CreateCategoryDialog()),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.shop),
-                      title: const Text('Add Product'),
-                      onTap: () => showAdaptiveDialog(
-                          context: context,
-                          builder: (BuildContext context) =>
-                              CreateProductDialog(
-                                categories: adminLogic.categories,
-                              )), // This function should open a dialog to create a new product
-                    ),
-                  ],
-                ),
-              );
+              return _addDialog(context, adminLogic);
             },
           );
         },
@@ -104,64 +90,90 @@ class _AdminPageState extends ConsumerState<AdminPage> {
           const Divider(),
           const ThemeWidget(),
           const LanguageTile(),
-          RowHeader(
-            header: 'Categories',
-            onPressed: () => showAdaptiveDialog(
-                context: context,
-                builder: (BuildContext context) =>
-                    const CreateCategoryDialog()),
-          ),
-          if ((adminLogic.categories == null ||
-                  adminLogic.categories.isEmpty) &&
-              !adminLogic.isLoading)
-            const Expanded(child: Center(child: Text('No data')))
-          else
-            adminLogic.errorMessage != null
-                ? Center(
-                    child: Text(
-                      adminLogic.errorMessage!,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                  )
-                : adminLogic.isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : // show Categories
-                    Expanded(
-                        child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: ListView.builder(
-                            itemCount: adminLogic.categories.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              final Category category =
-                                  adminLogic.categories[index];
-                              return CategoryTile(category: category);
-                            }),
-                      )),
-          RowHeader(header: 'Products', onPressed: () {}),
+          const Header(text: 'Categories'),
           Expanded(
             child: adminLogic.errorMessage != null
                 ? Center(
                     child: Text(
-                      adminLogic.errorMessage!,
-                      style: Theme.of(context).textTheme.titleLarge,
+                      'Api error',
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   )
                 : adminLogic.isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : // show Products
-                    ListView.builder(
-                        itemCount: adminLogic.products.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final Product product = adminLogic.products[index];
-                          return ListTile(
-                            title: Text(product.name),
-                            subtitle: Text(product.description),
-                            trailing: Text(product.price.toString()),
-                          );
-                        }),
+                    const CategoriesListView(),
           ),
         ],
       ),
+    );
+  }
+
+  Wrap _addDialog(BuildContext context, AdminPageUIModel adminLogic) {
+    return Wrap(
+      children: <Widget>[
+        ListTile(
+          leading: const Icon(Icons.category),
+          title: const Text('Add Category'),
+          onTap: () => showAdaptiveDialog(
+              context: context,
+              builder: (BuildContext context) => const CreateCategoryDialog()),
+        ),
+        ListTile(
+          leading: const Icon(Icons.shop),
+          title: const Text('Add Product'),
+          onTap: () => showAdaptiveDialog(
+              context: context,
+              builder: (BuildContext context) => CreateProductDialog(
+                    categories: adminLogic.categories,
+                  )), // This function should open a dialog to create a new product
+        ),
+      ],
+    );
+  }
+}
+
+class CategoriesListView extends ConsumerWidget {
+  const CategoriesListView({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AdminPageUIModel adminLogic = ref.watch(adminPageLogicProvider);
+    return ListView.builder(
+      itemCount: adminLogic.productsMap.keys.length,
+      itemBuilder: (BuildContext context, int index) {
+        final Category category = adminLogic.categories[index];
+        final List<Product> products = adminLogic.productsMap[category.id]!;
+        return ExpansionTile(
+          title: Text(category.name),
+          children: products
+              .map((Product product) => Dismissible(
+                    key: UniqueKey(),
+                    child: ProductCard(product: product),
+                    onDismissed: (DismissDirection direction) {
+                      ref
+                          .read(adminPageLogicProvider.notifier)
+                          .removeProduct(product.id);
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(
+                          SnackBar(
+                            elevation: 0,
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.transparent,
+                            content: AwesomeSnackbarContent(
+                                title: 'Success'.tr(),
+                                message: 'product_deleted'.tr(),
+                                contentType: ContentType.success),
+                          ),
+                        );
+                    },
+                  ))
+              .toList(),
+        );
+      },
     );
   }
 }
@@ -217,157 +229,6 @@ class LanguageTile extends StatelessWidget {
         style:
             Theme.of(context).textTheme.titleMedium!.apply(fontWeightDelta: 2),
       ),
-    );
-  }
-}
-
-class ProductCard extends ConsumerWidget {
-  const ProductCard({super.key, required this.product});
-  final Product product;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Card(
-      child: Column(
-        children: <Widget>[
-          Image.network(
-            product.imageBase64,
-            errorBuilder:
-                (BuildContext context, Object error, StackTrace? stackTrace) =>
-                    const Placeholder(),
-          ), // assuming imageBase64 is a URL
-          Text(product.name),
-          Text(product.price.toString()),
-          Text(product.description),
-        ],
-      ),
-    );
-  }
-}
-
-class CreateProductDialog extends ConsumerStatefulWidget {
-  const CreateProductDialog({super.key, required this.categories});
-  final List<Category> categories;
-
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _CreateProductDialogState();
-}
-
-class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
-  CreateProductRequest productRequest = const CreateProductRequest(
-    name: '',
-    description: '',
-    price: 0,
-    imageBase64: '',
-    categoryId: 0,
-    currencyId: 1,
-    productVideoLink: '',
-  );
-  @override
-  Widget build(BuildContext context) {
-    final AdminPageUIModel adminLogic = ref.watch(adminPageLogicProvider);
-
-    return AlertDialog(
-      title: const Text('Create Product'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          DropdownButton<Category>(
-            value: adminLogic.selectedCategory,
-            onChanged: (Category? newValue) {
-              ref.read(adminPageLogicProvider.notifier).setSelectedCategory(
-                    newValue!,
-                  );
-              productRequest = productRequest.copyWith(categoryId: newValue.id);
-            },
-            items: widget.categories
-                .map<DropdownMenuItem<Category>>(
-                    (Category category) => DropdownMenuItem<Category>(
-                          value: category,
-                          child: Text(category.name),
-                        ))
-                .toList(),
-          ),
-          TextField(
-            decoration: const InputDecoration(
-              hintText: 'Name',
-            ),
-            onChanged: (String value) {
-              productRequest = productRequest.copyWith(name: value);
-            },
-          ),
-          TextField(
-            decoration: const InputDecoration(
-              hintText: 'Description',
-            ),
-            onChanged: (String value) {
-              productRequest = productRequest.copyWith(description: value);
-            },
-          ),
-          TextField(
-            decoration: const InputDecoration(
-              hintText: 'Price',
-            ),
-            onChanged: (String value) {
-              productRequest = productRequest.copyWith(price: int.parse(value));
-            },
-          ),
-          TextField(
-            decoration: const InputDecoration(
-              hintText: 'Image URL',
-            ),
-            onChanged: (String value) {
-              productRequest = productRequest.copyWith(imageBase64: value);
-            },
-          ),
-          TextField(
-            decoration: const InputDecoration(
-              hintText: 'Video URL',
-            ),
-            onChanged: (String value) {
-              productRequest = productRequest.copyWith(productVideoLink: value);
-            },
-          ),
-          TextField(
-            decoration: const InputDecoration(
-              hintText: 'Currency ID',
-            ),
-            onChanged: (String value) {
-              productRequest =
-                  productRequest.copyWith(currencyId: int.parse(value));
-            },
-          ),
-        ],
-      ),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () {
-            if (productRequest != null) {
-              ref.read(adminPageLogicProvider.notifier).createProduct(
-                    productRequest,
-                  );
-              Navigator.of(context).pop();
-            } else {
-              // show error
-              showAdaptiveDialog(
-                context: context,
-                builder: (BuildContext context) => const AlertDialog(
-                  title: Text('Error'),
-                  content: Text('Please fill all fields'),
-                ),
-              );
-            }
-          },
-          child: const Text('Create'),
-        ),
-      ],
     );
   }
 }

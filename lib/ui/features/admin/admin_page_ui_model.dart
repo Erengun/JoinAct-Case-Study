@@ -12,8 +12,10 @@ class AdminPageUIModel with _$AdminPageUIModel {
   const factory AdminPageUIModel({
     @Default([]) List<Category> categories,
     @Default([]) List<Product> products,
+    @Default({}) Map<int, List<Product>> productsMap,
     @Default(false) bool isLoading,
     @Default(null) String? errorMessage,
     @Default(null) Category? selectedCategory,
+
   }) = _AdminPageUIModel;
 }
