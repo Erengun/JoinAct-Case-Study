@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../constants/endpoints.dart';
-import '../user.dart';
 import 'order/order.dart';
 
 part 'get_order_model.freezed.dart';

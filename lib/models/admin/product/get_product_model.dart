@@ -38,4 +38,3 @@ class ProductData with _$ProductData {
   factory ProductData.fromJson(Map<String, dynamic> json) =>
       _$ProductDataFromJson(json);
 }
-

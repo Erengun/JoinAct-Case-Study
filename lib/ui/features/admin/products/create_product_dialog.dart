@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../models/admin/category/category.dart';
@@ -8,7 +7,7 @@ import '../admin_page_logic.dart';
 import '../admin_page_ui_model.dart';
 
 class CreateProductDialog extends ConsumerStatefulWidget {
-  const CreateProductDialog({Key? key, required this.categories});
+  const CreateProductDialog({super.key, required this.categories});
   final List<Category> categories;
 
   @override
@@ -23,7 +22,7 @@ class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
   @override
   void initState() {
     super.initState();
-    productRequest = CreateProductRequest(
+    productRequest = const CreateProductRequest(
       name: '',
       description: '',
       price: 0,
@@ -51,7 +50,8 @@ class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
                 ref
                     .read(adminPageLogicProvider.notifier)
                     .setSelectedCategory(newValue!);
-                productRequest = productRequest.copyWith(categoryId: newValue.id);
+                productRequest =
+                    productRequest.copyWith(categoryId: newValue.id);
               },
               items: widget.categories
                   .map<DropdownMenuItem<Category>>(
@@ -69,7 +69,7 @@ class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
               decoration: const InputDecoration(
                 labelText: 'Name',
               ),
-              validator: (value) {
+              validator: (String? value) {
                 if (value!.isEmpty) {
                   return 'Please enter a name';
                 }
@@ -83,7 +83,7 @@ class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
               decoration: const InputDecoration(
                 labelText: 'Description',
               ),
-              validator: (value) {
+              validator: (String? value) {
                 if (value!.isEmpty) {
                   return 'Please enter a description';
                 }
@@ -97,14 +97,15 @@ class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
               decoration: const InputDecoration(
                 labelText: 'Price',
               ),
-              validator: (value) {
+              validator: (String? value) {
                 if (value!.isEmpty) {
                   return 'Please enter a price';
                 }
                 return null;
               },
               onChanged: (String value) {
-                productRequest = productRequest.copyWith(price: int.parse(value));
+                productRequest =
+                    productRequest.copyWith(price: int.parse(value));
               },
             ),
             TextFormField(
@@ -120,7 +121,8 @@ class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
                 labelText: 'Video URL',
               ),
               onChanged: (String value) {
-                productRequest = productRequest.copyWith(productVideoLink: value);
+                productRequest =
+                    productRequest.copyWith(productVideoLink: value);
               },
             ),
             TextFormField(
@@ -128,7 +130,8 @@ class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
                 labelText: 'Currency ID',
               ),
               onChanged: (String value) {
-                productRequest = productRequest.copyWith(currencyId: int.parse(value));
+                productRequest =
+                    productRequest.copyWith(currencyId: int.parse(value));
               },
             ),
           ],

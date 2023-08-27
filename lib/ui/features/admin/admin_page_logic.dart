@@ -1,3 +1,5 @@
+// ignore_for_file: flutter_style_todos, always_declare_return_types
+
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

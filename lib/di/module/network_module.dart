@@ -10,9 +10,8 @@ import '../../data/network/admin/category/category_rest_client.dart';
 import '../../data/network/admin/product/product_rest_client.dart';
 import '../../data/network/user/user_rest_client.dart';
 
-
-/// NetworkModule is used to register network related dependencies. 
-/// @module is used to register the module. 
+/// NetworkModule is used to register network related dependencies.
+/// @module is used to register the module.
 /// @preResolve is used to make sure that the Future is resolved before the app starts.
 /// @lazySingleton is used to make sure that the dependency is created only once.
 /// @injectable is used to make sure that the dependency is created only once.
@@ -51,7 +50,7 @@ abstract class NetworkModule {
     return Future.value(dio);
   }
 
-  /// Register RestClients here to be used in the app. 
+  /// Register RestClients here to be used in the app.
   /// It is recommended to use @preResolve annotation to make sure that the
   /// Future is resolved before the app starts.
 

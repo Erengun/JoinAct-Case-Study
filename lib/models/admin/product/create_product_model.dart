@@ -36,4 +36,3 @@ class CreateProductResponse with _$CreateProductResponse {
   factory CreateProductResponse.fromJson(Map<String, dynamic> json) =>
       _$CreateProductResponseFromJson(json);
 }
-

@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../constants/endpoints.dart';
-
 part 'order.freezed.dart';
 part 'order.g.dart';
 
@@ -26,8 +24,6 @@ class OrderData with _$OrderData {
   factory OrderData.fromJson(Map<String, dynamic> json) =>
       _$OrderDataFromJson(json);
 }
-
-
 
 @freezed
 class Items with _$Items {

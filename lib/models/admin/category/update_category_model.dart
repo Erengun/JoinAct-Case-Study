@@ -1,8 +1,7 @@
-import '../../../constants/endpoints.dart';
-import 'category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'create_category_model.dart';
+import '../../../constants/endpoints.dart';
+import 'category.dart';
 
 part 'update_category_model.freezed.dart';
 part 'update_category_model.g.dart';
