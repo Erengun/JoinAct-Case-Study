@@ -21,14 +21,24 @@ import 'user_ui_model.dart';
 
 part 'user_logic.g.dart';
 
+/// Riverpod Providers:
+/// The next section consists of several asynchronous functions annotated with @riverpod.
+/// These are Riverpod providers, which encapsulate pieces of state and
+/// allow widgets to listen to that state codewithandrea.com.
 @riverpod
 Future<Either<String, GetOrdersResponse>> getOrdersForUserId(
-    GetOrdersForUserIdRef ref, int id) async {
+    GetOrdersForUserIdRef ref) async {
+  final String id = getIt<GetStoreHelper>().getToken()!;
   final OrderRepository orderRepository = ref.watch(getOrderRepositoryProvider);
-  final Either<String, GetOrdersResponse> response =
-      await orderRepository.getOrdersForUserId(GetOrdersRequest(userId: id));
+  final Either<String, GetOrdersResponse> response = await orderRepository
+      .getOrdersForUserId(GetOrdersRequest(userId: int.parse(id)));
   return response;
 }
+
+/// In the above code, getOrdersForUserId is a provider that fetches orders for a specific user from an OrderRepository.
+/// It uses the watch method from Riverpod to listen to a provider and react to its changes.
+/// This method returns a Future<Either<String, GetOrdersResponse>>,
+/// which means it will eventually return either a string (representing an error) or a GetOrdersResponse object
 
 @riverpod
 Future<Either<String, GetCategoriesResponse>> fetchCategories(
@@ -57,9 +67,16 @@ Future<User?> fetchUser(FetchUserRef ref) async {
   return savedUser;
 }
 
+/// UserLogic Class:
+/// The UserLogic class extends the generated _$UserLogic class and contains the state and business logic for the user.
+/// It uses a GetStoreHelper object to retrieve the user data and uses various methods to update its state.
 @riverpod
 class UserLogic extends _$UserLogic {
   final GetStoreHelper _getStoreHelper = getIt<GetStoreHelper>();
+
+  /// the build method returns an instance of UserUIModel with the isLoading property set to true.
+  /// This indicates that the data is currently being fetched. Other methods in this class,
+  /// like setCategories, setProducts, etc., update the state of the UserLogic instance
   @override
   UserUIModel build() {
     return const UserUIModel(
@@ -109,7 +126,6 @@ class UserLogic extends _$UserLogic {
     );
   }
 
-
   void addProductToCart(Product product) {
     state = state.copyWith(
       isLoading: false,
@@ -120,6 +136,9 @@ class UserLogic extends _$UserLogic {
     );
   }
 
+  /// The createUser and createOrder methods are used to create a new user and a new order, respectively.
+  ///  They set isLoading to true at the beginning, perform the creation operation,
+  /// and then update the state based on whether the operation was successful.
   createUser(CreateUserRequest request, {Function()? onSuccess}) async {
     state = state.copyWith(
       isLoading: true,
@@ -139,7 +158,16 @@ class UserLogic extends _$UserLogic {
     });
   }
 
-  createOrder(CreateOrderRequest request, {Function()? onSuccess}) async {
+  createOrder({Function()? onSuccess}) async {
+    final List<Product> products = state.cartProducts;
+    final int id = state.user.id.isNegative
+        ? int.parse(_getStoreHelper.getToken()!)
+        : state.user.id;
+    final CreateOrderRequest request = CreateOrderRequest(
+      productIds: products.map((Product e) => e.id).toList(),
+      time: DateTime.now().toIso8601String(),
+      userId: id,
+    );
     state = state.copyWith(
       isLoading: true,
     );
@@ -153,6 +181,7 @@ class UserLogic extends _$UserLogic {
           ...state.orders,
           order,
         ],
+        cartProducts: <Product>[],
       );
       if (onSuccess != null) {
         onSuccess();
@@ -160,6 +189,7 @@ class UserLogic extends _$UserLogic {
     });
   }
 
+  /// Logout: The logout method is used to clear the stored user data and set the user property of the state to an empty User object.
   logout() {
     _getStoreHelper.clear();
     state = state.copyWith(

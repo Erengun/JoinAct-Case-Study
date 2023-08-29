@@ -25,7 +25,7 @@ class ProductCard extends StatelessWidget {
                   product.imageBase64,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  height: 100,
+                  height: 80,
                   errorBuilder: (BuildContext context, Object error,
                       StackTrace? stackTrace) {
                     return const Center(

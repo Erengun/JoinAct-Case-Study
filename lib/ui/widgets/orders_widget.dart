@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/user/order/order.dart';
+import '../../utils/context_extensions.dart';
 import '../features/user/user_logic.dart';
 import '../features/user/user_ui_model.dart';
 
@@ -14,8 +15,11 @@ class OrderHistoryWidget extends ConsumerWidget {
     final List<Order> orderHistory = userPanelUIModel.orders;
 
     return orderHistory.isEmpty
-        ? const Center(
-            child: Text('No orders yet'),
+        ? Center(
+            child: Text(
+              'Existing orders will be shown here',
+              style: context.textTheme.bodyLarge,
+            ),
           )
         : ListView.builder(
             itemCount: orderHistory.length,
@@ -23,8 +27,8 @@ class OrderHistoryWidget extends ConsumerWidget {
               final Order order = orderHistory[index];
               return ListTile(
                 title: Text('Order #${order.id}'),
-                subtitle: Text('Date: ${order.time}'),
-                trailing: Text('Total: \$${order.items.length} items'),
+                subtitle: Text('Date: ${parseTime(order.time)}'),
+                trailing: Text('Total: ${order.items.length} items'),
               );
             },
           );

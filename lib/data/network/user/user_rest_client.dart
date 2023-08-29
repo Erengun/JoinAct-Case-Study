@@ -22,7 +22,7 @@ abstract class UserRestClient {
     @Body() CreateUserRequest body,
   );
 
-  @POST("/CreateOrder")
+  @POST('/CreateOrder')
   Future<CreateOrderResponse> createOrder(
     @Body() CreateOrderRequest body,
   );

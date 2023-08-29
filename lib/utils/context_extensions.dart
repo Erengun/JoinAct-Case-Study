@@ -9,6 +9,10 @@ extension BuildContextExtensions on BuildContext {
 }
 
 extension ContextExtension on BuildContext {
+  /// This method shows a SnackBar with the AwesomeSnackbarContent inside it.
+  /// The SnackBar is used to show a banner at the bottom of the screen.
+  /// We use the [ScaffoldMessenger] to show the SnackBar. 
+  /// When representing errors, we use the [ContentType.failure] to show a red banner.
   void showErrorSnackBar({
     required String title,
     required String message,
@@ -31,6 +35,9 @@ extension ContextExtension on BuildContext {
       ..showSnackBar(snackBar);
   }
 
+  /// This method shows a MaterialBanner with the AwesomeSnackbarContent inside it.
+  /// The MaterialBanner is used to show a banner at the top of the screen.
+  /// It is used to show a success message.
   void showAwesomeMaterialBanner({
     required String title,
     required String message,

@@ -38,12 +38,12 @@ class BottomNavBar extends ConsumerWidget {
         },
         barItems: <BarItem>[
           BarItem(
-            filledIcon: Ionicons.home,
-            outlinedIcon: Ionicons.home_outline,
+            filledIcon: Icons.admin_panel_settings,
+            outlinedIcon: Icons.admin_panel_settings_outlined,
           ),
           BarItem(
-            filledIcon: Ionicons.information_circle,
-            outlinedIcon: Ionicons.information_circle_outline,
+            filledIcon: Ionicons.person_circle,
+            outlinedIcon: Ionicons.person_circle_outline,
           ),
         ],
       ),

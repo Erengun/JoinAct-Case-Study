@@ -22,7 +22,8 @@ class ProductsListView extends ConsumerWidget {
       itemBuilder: (BuildContext context, int index) {
         final Category category = userLogic.categories[index];
         final List<Product> products = userLogic.productsMap[category.id]!;
-        return ExpansionTile(
+        return 
+        ExpansionTile(
           title: Text(category.name),
           children: products
               .map((Product product) => Dismissible(

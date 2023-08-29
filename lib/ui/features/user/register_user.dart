@@ -1,11 +1,12 @@
-// register user screen
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../config/router/app_router.dart';
 import '../../../models/user/create_user_model.dart';
 import '../../../utils/context_extensions.dart';
+import '../../widgets/bottom_nav_bar.dart';
 import 'user_logic.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -18,6 +19,7 @@ class RegisterScreen extends ConsumerStatefulWidget {
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   late CreateUserRequest request;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -35,14 +37,19 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       appBar: AppBar(
         title: const Text('Register'),
       ),
-      body: Padding(
+      bottomNavigationBar: const BottomNavBar(),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const Text('Create New User:'),
+              const Text(
+                'Create New User:',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              const Gap(16),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Name'),
                 onChanged: (String value) =>
@@ -50,6 +57,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 validator: (String? value) =>
                     value!.isEmpty ? 'Please enter a name' : null,
               ),
+              const Gap(16),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Surname'),
                 onChanged: (String value) =>
@@ -57,6 +65,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 validator: (String? value) =>
                     value!.isEmpty ? 'Please enter a surname' : null,
               ),
+              const Gap(16),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Email'),
                 onChanged: (String value) =>
@@ -65,6 +74,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     ? 'Please enter a valid email address'
                     : null,
               ),
+              const Gap(16),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Phone'),
                 onChanged: (String value) =>
@@ -72,29 +82,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 validator: (String? value) =>
                     value!.isEmpty ? 'Please enter a valid phone number' : null,
               ),
+              const Gap(24),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    ref.read(userLogicProvider.notifier).createUser(
-                          request,
-                          onSuccess: () =>
-                              context.go(SGRoute.secondScreen.route),
-                        );
-                  }
-                  if (ref.read(userLogicProvider).errorMessage != null) {
-                    context.showErrorSnackBar(
-                        message: 'An error occured try again',
-                        title: 'Oh no!',
-                        actionText: 'Retry',
-                        onActionPressed: () {
-                          ref.read(userLogicProvider.notifier).createUser(
-                                request,
-                                onSuccess: () =>
-                                    context.go(SGRoute.secondScreen.route),
-                              );
-                        });
-                  }
-                },
+                onPressed: () => _createUser(context),
                 child: const Text('Create User'),
               ),
             ],
@@ -102,5 +92,22 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  void _createUser(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      ref.read(userLogicProvider.notifier).createUser(
+            request,
+            onSuccess: () => context.go(SGRoute.secondScreen.route),
+          );
+    }
+    if (ref.read(userLogicProvider).errorMessage != null) {
+      context.showErrorSnackBar(
+        message: 'An error occurred. Please try again.',
+        title: 'Oops!',
+        actionText: 'Retry',
+        onActionPressed: () => _createUser(context),
+      );
+    }
   }
 }

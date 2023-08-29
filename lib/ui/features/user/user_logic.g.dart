@@ -7,116 +7,36 @@ part of 'user_logic.dart';
 // **************************************************************************
 
 String _$getOrdersForUserIdHash() =>
-    r'c0380243a137f4255d83bf2c83e0e83afb1b26d7';
+    r'105107d993dce6b6a52637bd10a5bb9c340c4912';
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
+/// Riverpod Providers:
+/// The next section consists of several asynchronous functions annotated with @riverpod.
+/// These are Riverpod providers, which encapsulate pieces of state and
+/// allow widgets to listen to that state codewithandrea.com.
+///
+/// Copied from [getOrdersForUserId].
+@ProviderFor(getOrdersForUserId)
+final getOrdersForUserIdProvider =
+    AutoDisposeFutureProvider<Either<String, GetOrdersResponse>>.internal(
+  getOrdersForUserId,
+  name: r'getOrdersForUserIdProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getOrdersForUserIdHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 typedef GetOrdersForUserIdRef
     = AutoDisposeFutureProviderRef<Either<String, GetOrdersResponse>>;
-
-/// See also [getOrdersForUserId].
-@ProviderFor(getOrdersForUserId)
-const getOrdersForUserIdProvider = GetOrdersForUserIdFamily();
-
-/// See also [getOrdersForUserId].
-class GetOrdersForUserIdFamily
-    extends Family<AsyncValue<Either<String, GetOrdersResponse>>> {
-  /// See also [getOrdersForUserId].
-  const GetOrdersForUserIdFamily();
-
-  /// See also [getOrdersForUserId].
-  GetOrdersForUserIdProvider call(
-    int id,
-  ) {
-    return GetOrdersForUserIdProvider(
-      id,
-    );
-  }
-
-  @override
-  GetOrdersForUserIdProvider getProviderOverride(
-    covariant GetOrdersForUserIdProvider provider,
-  ) {
-    return call(
-      provider.id,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'getOrdersForUserIdProvider';
-}
-
-/// See also [getOrdersForUserId].
-class GetOrdersForUserIdProvider
-    extends AutoDisposeFutureProvider<Either<String, GetOrdersResponse>> {
-  /// See also [getOrdersForUserId].
-  GetOrdersForUserIdProvider(
-    this.id,
-  ) : super.internal(
-          (ref) => getOrdersForUserId(
-            ref,
-            id,
-          ),
-          from: getOrdersForUserIdProvider,
-          name: r'getOrdersForUserIdProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$getOrdersForUserIdHash,
-          dependencies: GetOrdersForUserIdFamily._dependencies,
-          allTransitiveDependencies:
-              GetOrdersForUserIdFamily._allTransitiveDependencies,
-        );
-
-  final int id;
-
-  @override
-  bool operator ==(Object other) {
-    return other is GetOrdersForUserIdProvider && other.id == id;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
 String _$fetchCategoriesHash() => r'178b4339f647f4c4bb4e46f9528503a91170c684';
 
-/// See also [fetchCategories].
+/// In the above code, getOrdersForUserId is a provider that fetches orders for a specific user from an OrderRepository.
+/// It uses the watch method from Riverpod to listen to a provider and react to its changes.
+/// This method returns a Future<Either<String, GetOrdersResponse>>,
+/// which means it will eventually return either a string (representing an error) or a GetOrdersResponse object
+///
+/// Copied from [fetchCategories].
 @ProviderFor(fetchCategories)
 final fetchCategoriesProvider =
     AutoDisposeFutureProvider<Either<String, GetCategoriesResponse>>.internal(
@@ -162,9 +82,13 @@ final fetchUserProvider = AutoDisposeFutureProvider<User?>.internal(
 );
 
 typedef FetchUserRef = AutoDisposeFutureProviderRef<User?>;
-String _$userLogicHash() => r'a980bfab4e8e2c2b4d8981843d311a4581a7a25d';
+String _$userLogicHash() => r'02a881b5dcf888b678423cffbcf50984b82340a2';
 
-/// See also [UserLogic].
+/// UserLogic Class:
+/// The UserLogic class extends the generated _$UserLogic class and contains the state and business logic for the user.
+/// It uses a GetStoreHelper object to retrieve the user data and uses various methods to update its state.
+///
+/// Copied from [UserLogic].
 @ProviderFor(UserLogic)
 final userLogicProvider =
     AutoDisposeNotifierProvider<UserLogic, UserUIModel>.internal(
