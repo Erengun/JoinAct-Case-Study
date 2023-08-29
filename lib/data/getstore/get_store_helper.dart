@@ -1,8 +1,11 @@
-import 'package:get_storage/get_storage.dart';
-import 'package:injectable/injectable.dart';
 import 'dart:convert';
 
+import 'package:get_storage/get_storage.dart';
+import 'package:injectable/injectable.dart';
+
 import '../../models/user.dart';
+
+
 
 
 const String tokenKey = 'token';
@@ -49,12 +52,12 @@ class GetStoreHelper {
     }
   }
 
-  String? getEmail() {
-    return getStorage.read(emailKey);
+  Future<void> saveNavigationIndex(int index) async {
+    await getStorage.write('navigationIndex', index);
   }
 
-  String? getPassword() {
-    return getStorage.read(password);
+  int? getNavigationIndex() {
+    return getStorage.read('navigationIndex');
   }
 
   void clear() {

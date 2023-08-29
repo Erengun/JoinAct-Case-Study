@@ -7,9 +7,9 @@ import 'package:injectable/injectable.dart';
 import '../../data/getstore/get_store_helper.dart';
 import '../../di/components/service_locator.dart';
 import '../../ui/features/admin/admin_page.dart';
-import '../../ui/features/user/user_screen.dart';
 import '../../ui/features/user/no_user.dart';
 import '../../ui/features/user/register_user.dart';
+import '../../ui/features/user/user_screen.dart';
 import 'fade_extension.dart';
 
 GetStoreHelper getStoreHelper = getIt<GetStoreHelper>();
@@ -56,6 +56,7 @@ class SGGoRouter {
 }
 
 /// Example: Auth guard for Route Protection. GetStoreHelper is used to get token.
+/// If token is null, the user is redirected to the noUser route.
 // ignore: unused_element
 final String? Function(BuildContext context, GoRouterState state) _authGuard =
     (BuildContext context, GoRouterState state) {
