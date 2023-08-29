@@ -59,7 +59,29 @@ This repository makes use of the following pub packages:
 | [Url Launcher](https://pub.dev/packages/url_launcher)               | ^6.1.7  | Open urls in Browser               |
 | [Ionicons](https://pub.dev/packages/ionicons)                       | ^0.2.2  | Modern icon library                |
 
+## Screenshots
 
+#### Light Theme
+
+| Admin Light                                                                     | UserScreen Light                                                                     |
+|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| ![Admin Light](./assets/img/admin_light.png "The admin page with a light theme.") | ![UserScreen Light](./assets/img/user_light.png "The info page with a light theme.") |
+
+#### Dark Theme
+
+| Admin Dark                                                                   | UserScreen Dark                                                                   |
+|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ![Admin Dark](./assets/img/admin_dark.png "The admin page with a dark theme.") | ![UserScreen Dark](./assets/img/user_dark.png "The UserScreen page with a dark theme.") |
+
+
+## Extra Screenshots
+| Create new User                                                                   | Success  Dialog                                                                   |
+|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ![Admin Dark](./assets/img/extra1.png "The admin page with a dark theme.") | ![UserScreen Dark](./assets/img/extra2.png "The UserScreen page with a dark theme.") |
+
+| Shopping List                                                                   | Create Product                                                                   |
+|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ![Admin Dark](./assets/img/extra3.png "The admin page with a dark theme.") | ![UserScreen Dark](./assets/img/extra4.png "The UserScreen page with a dark theme.") |
 
 ### State management
 
@@ -296,29 +318,4 @@ The Call
 ```dart
   context.go(SGRoute.{your_route_name}.route);
 ```
-
-## Screenshots
-
-#### Light Theme
-
-| Admin Light                                                                     | UserScreen Light                                                                     |
-|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
-| ![Admin Light](./assets/img/admin_light.jpg "The admin page with a light theme.") | ![UserScreen Light](./assets/img/user_light.jpg "The info page with a light theme.") |
-
-#### Dark Theme
-
-| Admin Dark                                                                   | UserScreen Dark                                                                   |
-|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| ![Admin Dark](./assets/img/admin_dark.jpg "The admin page with a dark theme.") | ![UserScreen Dark](./assets/img/user_dark.jpg "The UserScreen page with a dark theme.") |
-
-
-## Web
-
-| Admin Light Web                                                                     | UserScreen Light Web                                                                     |
-|------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| ![Admin Light Web](./assets/img/admin_light_web.jpg "The admin page with a light theme.") | ![UserScreen Light Web](./assets/img/UserScreen_light_web.jpg "The UserScreen page with a light theme.") |
-
-| Admin Dark Web                                                                     | UserScreen Dark Web                                                                     |
-|------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| ![Admin Dark Web](./assets/img/admin_dark_web.jpg "The admin page with a dark theme.") | ![UserScreen Dark Web](./assets/img/UserScreen_dark_web.jpg "The UserScreen page with a dark theme.") |
 
