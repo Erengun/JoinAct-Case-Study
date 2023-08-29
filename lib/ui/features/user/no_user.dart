@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../config/router/app_router.dart';
 import '../../widgets/app_bar_gone.dart';
+import '../../widgets/bottom_nav_bar.dart';
 
 class NoUser extends StatelessWidget {
   const NoUser({super.key});
@@ -12,6 +13,7 @@ class NoUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const EmptyAppBar(),
+      bottomNavigationBar: const BottomNavBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -33,4 +35,3 @@ class NoUser extends StatelessWidget {
     );
   }
 }
-
