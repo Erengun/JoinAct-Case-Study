@@ -26,14 +26,14 @@ class BottomNavBar extends ConsumerWidget {
         selectedIndex: nav.navIndex,
         onItemSelected: (int index) {
           ref.read(bottomNavBarLogicProvider.notifier).setNavIndex(index);
-    
+
           /// If you have more than 2 screens, you have to implement a switch case Example:
           /// case 0:
           ///  context.go(SGRoute.firstScreen.route);
           /// case 1:
           ///   context.go(SGRoute.secondScreen.route);
           context.go(nav.navIndex == 1
-              ? SGRoute.firstScreen.route
+              ? SGRoute.home.route
               : SGRoute.secondScreen.route);
         },
         barItems: <BarItem>[
