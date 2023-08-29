@@ -27,11 +27,14 @@ class CategoriesListView extends ConsumerWidget {
           children: products
               .map((Product product) => Dismissible(
                     key: UniqueKey(),
-                    child: ProductCard(product: product),
+                    child: ProductCard(
+                      product: product,
+                      onTap: () {},
+                    ),
                     onDismissed: (DismissDirection direction) {
                       ref.read(adminPageLogicProvider.notifier).removeProduct(
                           product.id,
-                          onSuccess: () => context.showAwesomeSnackBar(
+                          onSuccess: () => context.showErrorSnackBar(
                               title: 'Success',
                               message: 'Product deleted successfully'));
                     },

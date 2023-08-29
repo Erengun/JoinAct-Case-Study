@@ -3,8 +3,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../models/admin/product/product.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.product});
+  const ProductCard({super.key, required this.product, required this.onTap,});
   final Product product;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +16,7 @@ class ProductCard extends StatelessWidget {
       elevation: 2,
       margin: const EdgeInsets.all(10),
       child: InkWell(
-        onTap: () {
-        },
+        onTap: onTap,
         child: Column(
           children: <Widget>[
             Stack(

@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 import '../../data/getstore/get_store_helper.dart';
 import '../../di/components/service_locator.dart';
 import '../../ui/features/admin/admin_page.dart';
-import '../../ui/features/user/info_screen.dart';
+import '../../ui/features/user/user_screen.dart';
 import '../../ui/features/user/no_user.dart';
 import '../../ui/features/user/register_user.dart';
 import 'fade_extension.dart';
