@@ -1,13 +1,18 @@
+// ignore_for_file: always_declare_return_types
+
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../data/getstore/get_store_helper.dart';
 import '../../../data/network/category_repository.dart';
 import '../../../data/network/order_repository.dart';
 import '../../../data/network/product_repository.dart';
+import '../../../di/components/service_locator.dart';
 import '../../../models/admin/category/category.dart';
 import '../../../models/admin/category/get_category_model.dart';
 import '../../../models/admin/product/get_product_model.dart';
-import '../../../models/admin/product/product.dart';
+import '../../../models/user.dart';
+import '../../../models/user/create_user_model.dart';
 import '../../../models/user/get_order_model.dart';
 import 'user_ui_model.dart';
 
@@ -44,6 +49,7 @@ Future<Either<String, GetProductsResponse>> fetchProducts(
 
 @riverpod
 class UserLogic extends _$UserLogic {
+  final GetStoreHelper _getStoreHelper = getIt<GetStoreHelper>();
   @override
   UserUIModel build() {
     return const UserUIModel(
@@ -58,11 +64,35 @@ class UserLogic extends _$UserLogic {
     );
   }
 
-
   void setCategories(List<Category> categories) {
     state = state.copyWith(
       isLoading: false,
       categories: categories,
+    );
+  }
+
+  createUser(CreateUserRequest request, {Function()? onSuccess}) async {
+    state = state.copyWith(
+      isLoading: true,
+    );
+    final Either<String, CreateUserResponse> response =
+        await ref.watch(getOrderRepositoryProvider).createUser(request);
+    response.fold((String l) => setError(l), (CreateUserResponse r) {
+      state = state.copyWith(
+        isLoading: false,
+        user: r.data,
+      );
+      _getStoreHelper.saveToken(r.data.id.toString());
+      if (onSuccess != null) {
+        onSuccess();
+      }
+    });
+  }
+
+  logout() {
+    _getStoreHelper.clear();
+    state = state.copyWith(
+      user: const User(),
     );
   }
 }

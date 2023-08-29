@@ -16,10 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserUIModel {
-  List<UserUIModel> get users => throw _privateConstructorUsedError;
   List<Order> get orders => throw _privateConstructorUsedError;
   List<Category> get categories => throw _privateConstructorUsedError;
-  User? get user => throw _privateConstructorUsedError;
+  User get user => throw _privateConstructorUsedError;
   Map<int, List<Product>> get productsMap => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
@@ -36,15 +35,14 @@ abstract class $UserUIModelCopyWith<$Res> {
       _$UserUIModelCopyWithImpl<$Res, UserUIModel>;
   @useResult
   $Res call(
-      {List<UserUIModel> users,
-      List<Order> orders,
+      {List<Order> orders,
       List<Category> categories,
-      User? user,
+      User user,
       Map<int, List<Product>> productsMap,
       bool isLoading,
       String? errorMessage});
 
-  $UserCopyWith<$Res>? get user;
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -60,19 +58,14 @@ class _$UserUIModelCopyWithImpl<$Res, $Val extends UserUIModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? users = null,
     Object? orders = null,
     Object? categories = null,
-    Object? user = freezed,
+    Object? user = null,
     Object? productsMap = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
-      users: null == users
-          ? _value.users
-          : users // ignore: cast_nullable_to_non_nullable
-              as List<UserUIModel>,
       orders: null == orders
           ? _value.orders
           : orders // ignore: cast_nullable_to_non_nullable
@@ -81,10 +74,10 @@ class _$UserUIModelCopyWithImpl<$Res, $Val extends UserUIModel>
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
-      user: freezed == user
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as User?,
+              as User,
       productsMap: null == productsMap
           ? _value.productsMap
           : productsMap // ignore: cast_nullable_to_non_nullable
@@ -102,12 +95,8 @@ class _$UserUIModelCopyWithImpl<$Res, $Val extends UserUIModel>
 
   @override
   @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res>? get user {
-    if (_value.user == null) {
-      return null;
-    }
-
-    return $UserCopyWith<$Res>(_value.user!, (value) {
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
       return _then(_value.copyWith(user: value) as $Val);
     });
   }
@@ -122,16 +111,15 @@ abstract class _$$_UserUIModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<UserUIModel> users,
-      List<Order> orders,
+      {List<Order> orders,
       List<Category> categories,
-      User? user,
+      User user,
       Map<int, List<Product>> productsMap,
       bool isLoading,
       String? errorMessage});
 
   @override
-  $UserCopyWith<$Res>? get user;
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -145,19 +133,14 @@ class __$$_UserUIModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? users = null,
     Object? orders = null,
     Object? categories = null,
-    Object? user = freezed,
+    Object? user = null,
     Object? productsMap = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_$_UserUIModel(
-      users: null == users
-          ? _value._users
-          : users // ignore: cast_nullable_to_non_nullable
-              as List<UserUIModel>,
       orders: null == orders
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
@@ -166,10 +149,10 @@ class __$$_UserUIModelCopyWithImpl<$Res>
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
-      user: freezed == user
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as User?,
+              as User,
       productsMap: null == productsMap
           ? _value._productsMap
           : productsMap // ignore: cast_nullable_to_non_nullable
@@ -190,26 +173,15 @@ class __$$_UserUIModelCopyWithImpl<$Res>
 
 class _$_UserUIModel implements _UserUIModel {
   const _$_UserUIModel(
-      {final List<UserUIModel> users = const [],
-      final List<Order> orders = const [],
+      {final List<Order> orders = const [],
       final List<Category> categories = const [],
-      this.user = null,
+      this.user = const User(),
       final Map<int, List<Product>> productsMap = const {},
       this.isLoading = false,
       this.errorMessage = null})
-      : _users = users,
-        _orders = orders,
+      : _orders = orders,
         _categories = categories,
         _productsMap = productsMap;
-
-  final List<UserUIModel> _users;
-  @override
-  @JsonKey()
-  List<UserUIModel> get users {
-    if (_users is EqualUnmodifiableListView) return _users;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_users);
-  }
 
   final List<Order> _orders;
   @override
@@ -231,7 +203,7 @@ class _$_UserUIModel implements _UserUIModel {
 
   @override
   @JsonKey()
-  final User? user;
+  final User user;
   final Map<int, List<Product>> _productsMap;
   @override
   @JsonKey()
@@ -250,7 +222,7 @@ class _$_UserUIModel implements _UserUIModel {
 
   @override
   String toString() {
-    return 'UserUIModel(users: $users, orders: $orders, categories: $categories, user: $user, productsMap: $productsMap, isLoading: $isLoading, errorMessage: $errorMessage)';
+    return 'UserUIModel(orders: $orders, categories: $categories, user: $user, productsMap: $productsMap, isLoading: $isLoading, errorMessage: $errorMessage)';
   }
 
   @override
@@ -258,7 +230,6 @@ class _$_UserUIModel implements _UserUIModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserUIModel &&
-            const DeepCollectionEquality().equals(other._users, _users) &&
             const DeepCollectionEquality().equals(other._orders, _orders) &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
@@ -274,7 +245,6 @@ class _$_UserUIModel implements _UserUIModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_users),
       const DeepCollectionEquality().hash(_orders),
       const DeepCollectionEquality().hash(_categories),
       user,
@@ -291,22 +261,19 @@ class _$_UserUIModel implements _UserUIModel {
 
 abstract class _UserUIModel implements UserUIModel {
   const factory _UserUIModel(
-      {final List<UserUIModel> users,
-      final List<Order> orders,
+      {final List<Order> orders,
       final List<Category> categories,
-      final User? user,
+      final User user,
       final Map<int, List<Product>> productsMap,
       final bool isLoading,
       final String? errorMessage}) = _$_UserUIModel;
 
   @override
-  List<UserUIModel> get users;
-  @override
   List<Order> get orders;
   @override
   List<Category> get categories;
   @override
-  User? get user;
+  User get user;
   @override
   Map<int, List<Product>> get productsMap;
   @override

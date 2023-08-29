@@ -148,7 +148,7 @@ final fetchProductsProvider =
 
 typedef FetchProductsRef
     = AutoDisposeFutureProviderRef<Either<String, GetProductsResponse>>;
-String _$userLogicHash() => r'6a31742a7962a45123ebc7d72ceb62ca1a75ba6a';
+String _$userLogicHash() => r'71856ebac0bc19725cd290afe4d1f381b0544890';
 
 /// See also [UserLogic].
 @ProviderFor(UserLogic)
