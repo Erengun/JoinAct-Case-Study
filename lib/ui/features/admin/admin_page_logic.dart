@@ -153,7 +153,7 @@ class AdminPageLogic extends _$AdminPageLogic {
     });
   }
 
-  removeProduct(int productId) async {
+  removeProduct(int productId, {Function()? onSuccess}) async {
     state = state.copyWith(
       isLoading: true,
     );
@@ -168,6 +168,9 @@ class AdminPageLogic extends _$AdminPageLogic {
         products: products,
       );
       setProductsMap(_getProductsMap(state.products));
+      if (onSuccess != null) {
+        onSuccess();
+      }
     });
   }
 }

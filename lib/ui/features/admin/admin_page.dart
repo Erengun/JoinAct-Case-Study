@@ -1,23 +1,19 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:ionicons/ionicons.dart';
 
 import '../../../../utils/context_extensions.dart';
 
-import '../../../models/admin/category/category.dart';
 import '../../../models/admin/category/get_category_model.dart';
 import '../../../models/admin/product/get_product_model.dart';
-import '../../../models/admin/product/product.dart';
 import '../../widgets/app_bar_gone.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import 'admin_page_logic.dart';
 import 'admin_page_ui_model.dart';
+import 'categories/category_list_view.dart';
 import 'categories/create_category_dialog.dart';
 import 'products/create_product_dialog.dart';
-import 'products/product_card.dart';
 import 'widgets/header.dart';
 import 'widgets/theme_widget.dart';
 
@@ -36,18 +32,8 @@ class _AdminPageState extends ConsumerState<AdminPage> {
         (Either<String, GetCategoriesResponse> response) => response.fold(
                 (String errorMessage) {
               ref.read(adminPageLogicProvider.notifier).setError(errorMessage);
-              final SnackBar snackBar = SnackBar(
-                elevation: 0,
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: Colors.transparent,
-                content: AwesomeSnackbarContent(
-                    title: 'Unlucky'.tr(),
-                    message: 'api_error'.tr(),
-                    contentType: ContentType.failure),
-              );
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(snackBar);
+              context.showAwesomeMaterialBanner(
+                  title: 'Error', message: errorMessage);
             },
                 (GetCategoriesResponse response) => ref
                     .read(adminPageLogicProvider.notifier)
@@ -63,6 +49,7 @@ class _AdminPageState extends ConsumerState<AdminPage> {
                   .setProducts(response.data.products),
             ));
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -133,79 +120,6 @@ class _AdminPageState extends ConsumerState<AdminPage> {
   }
 }
 
-class CategoriesListView extends ConsumerWidget {
-  const CategoriesListView({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final AdminPageUIModel adminLogic = ref.watch(adminPageLogicProvider);
-    return ListView.builder(
-      itemCount: adminLogic.productsMap.keys.length,
-      itemBuilder: (BuildContext context, int index) {
-        final Category category = adminLogic.categories[index];
-        final List<Product> products = adminLogic.productsMap[category.id]!;
-        return ExpansionTile(
-          title: Text(category.name),
-          children: products
-              .map((Product product) => Dismissible(
-                    key: UniqueKey(),
-                    child: ProductCard(product: product),
-                    onDismissed: (DismissDirection direction) {
-                      ref
-                          .read(adminPageLogicProvider.notifier)
-                          .removeProduct(product.id);
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(
-                          SnackBar(
-                            elevation: 0,
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: Colors.transparent,
-                            content: AwesomeSnackbarContent(
-                                title: 'Success'.tr(),
-                                message: 'product_deleted'.tr(),
-                                contentType: ContentType.success),
-                          ),
-                        );
-                    },
-                  ))
-              .toList(),
-        );
-      },
-    );
-  }
-}
-
-class CategoryTile extends ConsumerWidget {
-  const CategoryTile({
-    super.key,
-    required this.category,
-  });
-
-  final Category category;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return ListTile(
-      title: Text(
-        category.id.toString(),
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
-      subtitle: Text(
-        category.name,
-        style: Theme.of(context).textTheme.titleMedium,
-      ),
-      trailing: IconButton(
-        onPressed: () {
-          ref.read(adminPageLogicProvider.notifier).removeCategory(category.id);
-        },
-        icon: const Icon(Ionicons.trash_outline),
-      ),
-    );
-  }
-}
 
 class LanguageTile extends StatelessWidget {
   const LanguageTile({
