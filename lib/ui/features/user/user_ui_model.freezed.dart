@@ -22,6 +22,7 @@ mixin _$UserUIModel {
   Map<int, List<Product>> get productsMap => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  List<Product> get cartProducts => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserUIModelCopyWith<UserUIModel> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $UserUIModelCopyWith<$Res> {
       User user,
       Map<int, List<Product>> productsMap,
       bool isLoading,
-      String? errorMessage});
+      String? errorMessage,
+      List<Product> cartProducts});
 
   $UserCopyWith<$Res> get user;
 }
@@ -64,6 +66,7 @@ class _$UserUIModelCopyWithImpl<$Res, $Val extends UserUIModel>
     Object? productsMap = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
+    Object? cartProducts = null,
   }) {
     return _then(_value.copyWith(
       orders: null == orders
@@ -90,6 +93,10 @@ class _$UserUIModelCopyWithImpl<$Res, $Val extends UserUIModel>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      cartProducts: null == cartProducts
+          ? _value.cartProducts
+          : cartProducts // ignore: cast_nullable_to_non_nullable
+              as List<Product>,
     ) as $Val);
   }
 
@@ -116,7 +123,8 @@ abstract class _$$_UserUIModelCopyWith<$Res>
       User user,
       Map<int, List<Product>> productsMap,
       bool isLoading,
-      String? errorMessage});
+      String? errorMessage,
+      List<Product> cartProducts});
 
   @override
   $UserCopyWith<$Res> get user;
@@ -139,6 +147,7 @@ class __$$_UserUIModelCopyWithImpl<$Res>
     Object? productsMap = null,
     Object? isLoading = null,
     Object? errorMessage = freezed,
+    Object? cartProducts = null,
   }) {
     return _then(_$_UserUIModel(
       orders: null == orders
@@ -165,6 +174,10 @@ class __$$_UserUIModelCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      cartProducts: null == cartProducts
+          ? _value._cartProducts
+          : cartProducts // ignore: cast_nullable_to_non_nullable
+              as List<Product>,
     ));
   }
 }
@@ -173,15 +186,17 @@ class __$$_UserUIModelCopyWithImpl<$Res>
 
 class _$_UserUIModel implements _UserUIModel {
   const _$_UserUIModel(
-      {final List<Order> orders = const [],
-      final List<Category> categories = const [],
+      {final List<Order> orders = const <Order>[],
+      final List<Category> categories = const <Category>[],
       this.user = const User(),
-      final Map<int, List<Product>> productsMap = const {},
+      final Map<int, List<Product>> productsMap = const <int, List<Product>>{},
       this.isLoading = false,
-      this.errorMessage = null})
+      this.errorMessage = null,
+      final List<Product> cartProducts = const <Product>[]})
       : _orders = orders,
         _categories = categories,
-        _productsMap = productsMap;
+        _productsMap = productsMap,
+        _cartProducts = cartProducts;
 
   final List<Order> _orders;
   @override
@@ -219,10 +234,18 @@ class _$_UserUIModel implements _UserUIModel {
   @override
   @JsonKey()
   final String? errorMessage;
+  final List<Product> _cartProducts;
+  @override
+  @JsonKey()
+  List<Product> get cartProducts {
+    if (_cartProducts is EqualUnmodifiableListView) return _cartProducts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_cartProducts);
+  }
 
   @override
   String toString() {
-    return 'UserUIModel(orders: $orders, categories: $categories, user: $user, productsMap: $productsMap, isLoading: $isLoading, errorMessage: $errorMessage)';
+    return 'UserUIModel(orders: $orders, categories: $categories, user: $user, productsMap: $productsMap, isLoading: $isLoading, errorMessage: $errorMessage, cartProducts: $cartProducts)';
   }
 
   @override
@@ -239,7 +262,9 @@ class _$_UserUIModel implements _UserUIModel {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            const DeepCollectionEquality()
+                .equals(other._cartProducts, _cartProducts));
   }
 
   @override
@@ -250,7 +275,8 @@ class _$_UserUIModel implements _UserUIModel {
       user,
       const DeepCollectionEquality().hash(_productsMap),
       isLoading,
-      errorMessage);
+      errorMessage,
+      const DeepCollectionEquality().hash(_cartProducts));
 
   @JsonKey(ignore: true)
   @override
@@ -266,7 +292,8 @@ abstract class _UserUIModel implements UserUIModel {
       final User user,
       final Map<int, List<Product>> productsMap,
       final bool isLoading,
-      final String? errorMessage}) = _$_UserUIModel;
+      final String? errorMessage,
+      final List<Product> cartProducts}) = _$_UserUIModel;
 
   @override
   List<Order> get orders;
@@ -280,6 +307,8 @@ abstract class _UserUIModel implements UserUIModel {
   bool get isLoading;
   @override
   String? get errorMessage;
+  @override
+  List<Product> get cartProducts;
   @override
   @JsonKey(ignore: true)
   _$$_UserUIModelCopyWith<_$_UserUIModel> get copyWith =>

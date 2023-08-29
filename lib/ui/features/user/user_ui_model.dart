@@ -12,11 +12,12 @@ part 'user_ui_model.freezed.dart';
 @freezed
 class UserUIModel with _$UserUIModel {
   const factory UserUIModel({
-    @Default([]) List<Order> orders,
-    @Default([]) List<Category> categories,
+    @Default(<Order>[]) List<Order> orders,
+    @Default(<Category>[]) List<Category> categories,
     @Default(User()) User user,
-    @Default({}) Map<int, List<Product>> productsMap,
+    @Default(<int, List<Product>>{}) Map<int, List<Product>> productsMap,
     @Default(false) bool isLoading,
     @Default(null) String? errorMessage,
+    @Default(<Product>[]) List<Product> cartProducts,
   }) = _UserUIModel;
 }

@@ -1,6 +1,6 @@
-// ignore_for_file: always_declare_return_types
+// ignore_for_file: always_declare_return_types, always_specify_types, strict_raw_type
 
-import 'package:fpdart/fpdart.dart';
+import 'package:fpdart/fpdart.dart' hide Order;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../data/getstore/get_store_helper.dart';
@@ -15,6 +15,8 @@ import '../../../models/admin/product/product.dart';
 import '../../../models/user.dart';
 import '../../../models/user/create_user_model.dart';
 import '../../../models/user/get_order_model.dart';
+import '../../../models/user/order/create_order_model.dart';
+import '../../../models/user/order/order.dart';
 import 'user_ui_model.dart';
 
 part 'user_logic.g.dart';
@@ -93,10 +95,28 @@ class UserLogic extends _$UserLogic {
     );
   }
 
+  void setOrders(List<Order> orders) {
+    state = state.copyWith(
+      isLoading: false,
+      orders: orders,
+    );
+  }
+
   void setUser(User user) {
     state = state.copyWith(
       isLoading: false,
       user: user,
+    );
+  }
+
+
+  void addProductToCart(Product product) {
+    state = state.copyWith(
+      isLoading: false,
+      cartProducts: [
+        ...state.cartProducts,
+        product,
+      ],
     );
   }
 
@@ -113,6 +133,27 @@ class UserLogic extends _$UserLogic {
       );
       _getStoreHelper.saveToken(r.data.id.toString());
       _getStoreHelper.saveUser(r.data);
+      if (onSuccess != null) {
+        onSuccess();
+      }
+    });
+  }
+
+  createOrder(CreateOrderRequest request, {Function()? onSuccess}) async {
+    state = state.copyWith(
+      isLoading: true,
+    );
+    final Either<String, CreateOrderResponse> response =
+        await ref.watch(getOrderRepositoryProvider).createOrder(request);
+    response.fold((String l) => setError(l), (CreateOrderResponse r) {
+      final order = r.data;
+      state = state.copyWith(
+        isLoading: false,
+        orders: [
+          ...state.orders,
+          order,
+        ],
+      );
       if (onSuccess != null) {
         onSuccess();
       }

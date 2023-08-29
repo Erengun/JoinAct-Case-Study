@@ -162,7 +162,7 @@ final fetchUserProvider = AutoDisposeFutureProvider<User?>.internal(
 );
 
 typedef FetchUserRef = AutoDisposeFutureProviderRef<User?>;
-String _$userLogicHash() => r'9ddb3c423795c2cc4acc65990c56e56513977af6';
+String _$userLogicHash() => r'a980bfab4e8e2c2b4d8981843d311a4581a7a25d';
 
 /// See also [UserLogic].
 @ProviderFor(UserLogic)
