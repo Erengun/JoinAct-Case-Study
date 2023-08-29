@@ -36,11 +36,10 @@ class UserModel extends HiveObject with _$UserModel {
 @freezed
 class User with _$User {
   const factory User({
-    required String id,
-    required String name,
-    required String surname,
-    required String mail,
-    required String phone,
+    @Default(-1) int id,
+    @Default('') String name,
+    @Default('') String mail,
+    @Default('') String phone,
   }) = _User;
 
   factory User.fromJson(Map<String, Object?> json) => _$UserFromJson(json);

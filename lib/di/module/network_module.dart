@@ -1,3 +1,5 @@
+// ignore_for_file: always_specify_types
+
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:injectable/injectable.dart';
@@ -27,7 +29,6 @@ abstract class NetworkModule {
           const Duration(milliseconds: Endpoints.connectionTimeout)
       ..options.receiveTimeout =
           const Duration(milliseconds: Endpoints.receiveTimeout)
-      // ignore: always_specify_types
       ..options.headers = {
         'Content-Type': 'application/json',
         'accept': 'text/plain'

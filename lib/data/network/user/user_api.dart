@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../models/admin/category/get_category_model.dart';
 import '../../../models/admin/product/get_product_model.dart';
+import '../../../models/user/create_user_model.dart';
 import '../../../models/user/get_order_model.dart';
 import '../admin/category/category_rest_client.dart';
 import '../admin/product/product_rest_client.dart';
@@ -49,6 +50,20 @@ class UserApi {
     try {
       final GetOrdersResponse response =
           await _userRestClient.getOrdersForUserId(request);
+      if (response.isSuccessful == false) {
+        return left(response.message);
+      }
+      return right(response);
+    } catch (e) {
+      debugPrint(e.toString());
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, CreateUserResponse>> createUser(CreateUserRequest request) async {
+    try {
+      final CreateUserResponse response =
+          await _userRestClient.createUser(request);
       if (response.isSuccessful == false) {
         return left(response.message);
       }

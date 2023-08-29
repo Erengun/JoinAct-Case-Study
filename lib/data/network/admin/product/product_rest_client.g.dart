@@ -25,8 +25,7 @@ class _ProductRestClient implements ProductRestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
+    final _data = body;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<GetProductsResponse>(Options(
       method: 'POST',
@@ -54,8 +53,7 @@ class _ProductRestClient implements ProductRestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
+    final _data = request;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CreateProductResponse>(Options(
       method: 'POST',
@@ -83,8 +81,7 @@ class _ProductRestClient implements ProductRestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
+    final _data = request;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<UpdateProductResponse>(Options(
       method: 'POST',
@@ -112,8 +109,7 @@ class _ProductRestClient implements ProductRestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
+    final _data = request;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<DeleteProductResponse>(Options(
       method: 'POST',

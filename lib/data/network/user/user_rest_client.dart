@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../constants/endpoints.dart';
+import '../../../models/user/create_user_model.dart';
 import '../../../models/user/get_order_model.dart';
 
 part 'user_rest_client.g.dart';
@@ -13,6 +14,10 @@ abstract class UserRestClient {
   @POST('/GetOrdersForUserId')
   Future<GetOrdersResponse> getOrdersForUserId(
     @Body() GetOrdersRequest body,
-  ); 
+  );
 
+  @POST('/CreateUser')
+  Future<CreateUserResponse> createUser(
+    @Body() CreateUserRequest body,
+  );
 }

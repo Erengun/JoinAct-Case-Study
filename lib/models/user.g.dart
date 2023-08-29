@@ -86,17 +86,15 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
     };
 
 _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      surname: json['surname'] as String,
-      mail: json['mail'] as String,
-      phone: json['phone'] as String,
+      id: json['id'] as int? ?? -1,
+      name: json['name'] as String? ?? '',
+      mail: json['mail'] as String? ?? '',
+      phone: json['phone'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'surname': instance.surname,
       'mail': instance.mail,
       'phone': instance.phone,
     };
