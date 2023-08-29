@@ -11,6 +11,7 @@ import '../../../di/components/service_locator.dart';
 import '../../../models/admin/category/category.dart';
 import '../../../models/admin/category/get_category_model.dart';
 import '../../../models/admin/product/get_product_model.dart';
+import '../../../models/admin/product/product.dart';
 import '../../../models/user.dart';
 import '../../../models/user/create_user_model.dart';
 import '../../../models/user/get_order_model.dart';
@@ -48,6 +49,13 @@ Future<Either<String, GetProductsResponse>> fetchProducts(
 }
 
 @riverpod
+Future<User?> fetchUser(FetchUserRef ref) async {
+  final GetStoreHelper getStoreHelper = getIt<GetStoreHelper>();
+  final User? savedUser = getStoreHelper.getUser();
+  return savedUser;
+}
+
+@riverpod
 class UserLogic extends _$UserLogic {
   final GetStoreHelper _getStoreHelper = getIt<GetStoreHelper>();
   @override
@@ -71,6 +79,27 @@ class UserLogic extends _$UserLogic {
     );
   }
 
+  void setProducts(List<Product> products) {
+    state = state.copyWith(
+      isLoading: false,
+      productsMap: <int, List<Product>>{
+        for (final Product product in products)
+          product.categoryId: <Product>[
+            if (state.productsMap[product.categoryId] != null)
+              ...state.productsMap[product.categoryId]!,
+            product,
+          ],
+      },
+    );
+  }
+
+  void setUser(User user) {
+    state = state.copyWith(
+      isLoading: false,
+      user: user,
+    );
+  }
+
   createUser(CreateUserRequest request, {Function()? onSuccess}) async {
     state = state.copyWith(
       isLoading: true,
@@ -83,6 +112,7 @@ class UserLogic extends _$UserLogic {
         user: r.data,
       );
       _getStoreHelper.saveToken(r.data.id.toString());
+      _getStoreHelper.saveUser(r.data);
       if (onSuccess != null) {
         onSuccess();
       }

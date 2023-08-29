@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../config/router/app_router.dart';
+import '../../../di/components/service_locator.dart';
+import '../../../models/user.dart';
 import '../../widgets/app_bar_gone.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import '../admin/widgets/header.dart';
@@ -20,6 +22,18 @@ class UserScreen extends ConsumerStatefulWidget {
 }
 
 class _UserScreenState extends ConsumerState<UserScreen> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(fetchUserProvider.future).then((User? user) {
+      if (user == null) {
+        context.go(SGRoute.noUser.route);
+      } else {
+        ref.read(userLogicProvider.notifier).setUser(user);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final UserUIModel userLogic = ref.watch(userLogicProvider);

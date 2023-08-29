@@ -148,7 +148,21 @@ final fetchProductsProvider =
 
 typedef FetchProductsRef
     = AutoDisposeFutureProviderRef<Either<String, GetProductsResponse>>;
-String _$userLogicHash() => r'71856ebac0bc19725cd290afe4d1f381b0544890';
+String _$fetchUserHash() => r'af2aeb74deb79a094aea43d9d0fc95d3b48affa6';
+
+/// See also [fetchUser].
+@ProviderFor(fetchUser)
+final fetchUserProvider = AutoDisposeFutureProvider<User?>.internal(
+  fetchUser,
+  name: r'fetchUserProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$fetchUserHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FetchUserRef = AutoDisposeFutureProviderRef<User?>;
+String _$userLogicHash() => r'9ddb3c423795c2cc4acc65990c56e56513977af6';
 
 /// See also [UserLogic].
 @ProviderFor(UserLogic)
