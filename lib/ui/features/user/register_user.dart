@@ -82,7 +82,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         );
                   }
                   if (ref.read(userLogicProvider).errorMessage != null) {
-                    context.showAwesomeSnackBar(
+                    context.showErrorSnackBar(
                         message: 'An error occured try again',
                         title: 'Oh no!',
                         actionText: 'Retry',

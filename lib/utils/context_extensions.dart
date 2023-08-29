@@ -9,7 +9,7 @@ extension BuildContextExtensions on BuildContext {
 }
 
 extension ContextExtension on BuildContext {
-  void showAwesomeSnackBar({
+  void showErrorSnackBar({
     required String title,
     required String message,
     String actionText = 'OK',
