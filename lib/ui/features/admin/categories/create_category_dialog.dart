@@ -18,7 +18,6 @@ class CreateCategoryDialog extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          //TODO: add localization
           const Gap(16),
           const Text('Add Category'),
           const Gap(16),

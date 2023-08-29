@@ -6,7 +6,7 @@ part of 'nav_bar_logic.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bottomNavBarLogicHash() => r'5ed095e9eafeeafcdbf972056dcfbc91751417cd';
+String _$bottomNavBarLogicHash() => r'b7c82083d6b3b68dfb5a0dbbbc35e02df5819362';
 
 /// See also [BottomNavBarLogic].
 @ProviderFor(BottomNavBarLogic)

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
@@ -6,6 +5,7 @@ import 'package:fpdart/fpdart.dart';
 import '../../../../utils/context_extensions.dart';
 
 import '../../../models/admin/category/get_category_model.dart';
+import '../../../models/admin/product/currency/currency.dart';
 import '../../../models/admin/product/get_product_model.dart';
 import '../../widgets/app_bar_gone.dart';
 import '../../widgets/bottom_nav_bar.dart';
@@ -28,18 +28,34 @@ class _AdminPageState extends ConsumerState<AdminPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(fetchCategoriesProvider.future).then(
+
+    /// The initState method is called when the widget is inserted into the widget tree.
+    /// We use it to fetch the categories and products from the network.
+    /// We use the read method from Riverpod to read a provider without listening to it.
+    /// This is useful when we want to fetch data only once.
+    /// We use the then method to execute code after the future is completed.
+    ref.read(fetchAdminCategoriesProvider.future).then(
         (Either<String, GetCategoriesResponse> response) => response.fold(
                 (String errorMessage) {
               ref.read(adminPageLogicProvider.notifier).setError(errorMessage);
               context.showAwesomeMaterialBanner(
-                  title: 'Error', message: errorMessage);
+                  title: 'Error', message: 'Api error');
             },
                 (GetCategoriesResponse response) => ref
                     .read(adminPageLogicProvider.notifier)
                     .setCategories(response.data.categories)));
     ref
-        .read(fetchProductsProvider.future)
+        .read(fetchAdminCurrenciesProvider.future)
+        .then((Either<String, GetCurrenciesResponse> response) => response.fold(
+              (String errorMessage) => ref
+                  .read(adminPageLogicProvider.notifier)
+                  .setError(errorMessage),
+              (GetCurrenciesResponse response) => ref
+                  .read(adminPageLogicProvider.notifier)
+                  .setCurrencies(response.data.currencies),
+            ));
+    ref
+        .read(fetchAdminProductsProvider.future)
         .then((Either<String, GetProductsResponse> response) => response.fold(
               (String errorMessage) => ref
                   .read(adminPageLogicProvider.notifier)
@@ -49,7 +65,6 @@ class _AdminPageState extends ConsumerState<AdminPage> {
                   .setProducts(response.data.products),
             ));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,20 +91,21 @@ class _AdminPageState extends ConsumerState<AdminPage> {
           const Header(text: 'Admin Section'),
           const Divider(),
           const ThemeWidget(),
-          const LanguageTile(),
           const Header(text: 'Categories'),
           Expanded(
             child: adminLogic.errorMessage != null
                 ? Center(
+                    /// For errors, we just show a text widget with the error message.
+                    /// but you can use any widget you want.
+                    /// The important thing is we can show the error message to the user.
                     child: Text(
                       'Api error',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   )
-                : adminLogic.isLoading
+                : (adminLogic.isCategoryLoading || adminLogic.isProductLoading)
                     ? const Center(child: CircularProgressIndicator())
-                    : // show Products
-                    const CategoriesListView(),
+                    : const CategoriesListView(),
           ),
         ],
       ),
@@ -113,36 +129,10 @@ class _AdminPageState extends ConsumerState<AdminPage> {
               context: context,
               builder: (BuildContext context) => CreateProductDialog(
                     categories: adminLogic.categories,
+                    currencies: adminLogic.currencies,
                   )), // This function should open a dialog to create a new product
         ),
       ],
-    );
-  }
-}
-
-
-class LanguageTile extends StatelessWidget {
-  const LanguageTile({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SwitchListTile(
-      onChanged: (bool newValue) {
-        /// Example: Change locale
-        /// The initial locale is automatically determined by the library.
-        /// Changing the locale like this will persist the selected locale.
-        context.setLocale(newValue ? const Locale('tr') : const Locale('en'));
-      },
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12))),
-      value: context.locale == const Locale('tr'),
-      title: Text(
-        tr('toggle_language'),
-        style:
-            Theme.of(context).textTheme.titleMedium!.apply(fontWeightDelta: 2),
-      ),
     );
   }
 }

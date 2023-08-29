@@ -16,12 +16,15 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AdminPageUIModel {
+  /// The @Default annotation is used to set a default value for a field.
   List<Category> get categories => throw _privateConstructorUsedError;
   List<Product> get products => throw _privateConstructorUsedError;
   Map<int, List<Product>> get productsMap => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isCategoryLoading => throw _privateConstructorUsedError;
+  bool get isProductLoading => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   Category? get selectedCategory => throw _privateConstructorUsedError;
+  List<Currency> get currencies => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AdminPageUIModelCopyWith<AdminPageUIModel> get copyWith =>
@@ -38,9 +41,11 @@ abstract class $AdminPageUIModelCopyWith<$Res> {
       {List<Category> categories,
       List<Product> products,
       Map<int, List<Product>> productsMap,
-      bool isLoading,
+      bool isCategoryLoading,
+      bool isProductLoading,
       String? errorMessage,
-      Category? selectedCategory});
+      Category? selectedCategory,
+      List<Currency> currencies});
 
   $CategoryCopyWith<$Res>? get selectedCategory;
 }
@@ -61,9 +66,11 @@ class _$AdminPageUIModelCopyWithImpl<$Res, $Val extends AdminPageUIModel>
     Object? categories = null,
     Object? products = null,
     Object? productsMap = null,
-    Object? isLoading = null,
+    Object? isCategoryLoading = null,
+    Object? isProductLoading = null,
     Object? errorMessage = freezed,
     Object? selectedCategory = freezed,
+    Object? currencies = null,
   }) {
     return _then(_value.copyWith(
       categories: null == categories
@@ -78,9 +85,13 @@ class _$AdminPageUIModelCopyWithImpl<$Res, $Val extends AdminPageUIModel>
           ? _value.productsMap
           : productsMap // ignore: cast_nullable_to_non_nullable
               as Map<int, List<Product>>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      isCategoryLoading: null == isCategoryLoading
+          ? _value.isCategoryLoading
+          : isCategoryLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isProductLoading: null == isProductLoading
+          ? _value.isProductLoading
+          : isProductLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
@@ -90,6 +101,10 @@ class _$AdminPageUIModelCopyWithImpl<$Res, $Val extends AdminPageUIModel>
           ? _value.selectedCategory
           : selectedCategory // ignore: cast_nullable_to_non_nullable
               as Category?,
+      currencies: null == currencies
+          ? _value.currencies
+          : currencies // ignore: cast_nullable_to_non_nullable
+              as List<Currency>,
     ) as $Val);
   }
 
@@ -118,9 +133,11 @@ abstract class _$$_AdminPageUIModelCopyWith<$Res>
       {List<Category> categories,
       List<Product> products,
       Map<int, List<Product>> productsMap,
-      bool isLoading,
+      bool isCategoryLoading,
+      bool isProductLoading,
       String? errorMessage,
-      Category? selectedCategory});
+      Category? selectedCategory,
+      List<Currency> currencies});
 
   @override
   $CategoryCopyWith<$Res>? get selectedCategory;
@@ -140,9 +157,11 @@ class __$$_AdminPageUIModelCopyWithImpl<$Res>
     Object? categories = null,
     Object? products = null,
     Object? productsMap = null,
-    Object? isLoading = null,
+    Object? isCategoryLoading = null,
+    Object? isProductLoading = null,
     Object? errorMessage = freezed,
     Object? selectedCategory = freezed,
+    Object? currencies = null,
   }) {
     return _then(_$_AdminPageUIModel(
       categories: null == categories
@@ -157,9 +176,13 @@ class __$$_AdminPageUIModelCopyWithImpl<$Res>
           ? _value._productsMap
           : productsMap // ignore: cast_nullable_to_non_nullable
               as Map<int, List<Product>>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
+      isCategoryLoading: null == isCategoryLoading
+          ? _value.isCategoryLoading
+          : isCategoryLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isProductLoading: null == isProductLoading
+          ? _value.isProductLoading
+          : isProductLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
@@ -169,6 +192,10 @@ class __$$_AdminPageUIModelCopyWithImpl<$Res>
           ? _value.selectedCategory
           : selectedCategory // ignore: cast_nullable_to_non_nullable
               as Category?,
+      currencies: null == currencies
+          ? _value._currencies
+          : currencies // ignore: cast_nullable_to_non_nullable
+              as List<Currency>,
     ));
   }
 }
@@ -180,14 +207,20 @@ class _$_AdminPageUIModel implements _AdminPageUIModel {
       {final List<Category> categories = const [],
       final List<Product> products = const [],
       final Map<int, List<Product>> productsMap = const {},
-      this.isLoading = false,
+      this.isCategoryLoading = false,
+      this.isProductLoading = false,
       this.errorMessage = null,
-      this.selectedCategory = null})
+      this.selectedCategory = null,
+      final List<Currency> currencies = const []})
       : _categories = categories,
         _products = products,
-        _productsMap = productsMap;
+        _productsMap = productsMap,
+        _currencies = currencies;
 
+  /// The @Default annotation is used to set a default value for a field.
   final List<Category> _categories;
+
+  /// The @Default annotation is used to set a default value for a field.
   @override
   @JsonKey()
   List<Category> get categories {
@@ -216,17 +249,28 @@ class _$_AdminPageUIModel implements _AdminPageUIModel {
 
   @override
   @JsonKey()
-  final bool isLoading;
+  final bool isCategoryLoading;
+  @override
+  @JsonKey()
+  final bool isProductLoading;
   @override
   @JsonKey()
   final String? errorMessage;
   @override
   @JsonKey()
   final Category? selectedCategory;
+  final List<Currency> _currencies;
+  @override
+  @JsonKey()
+  List<Currency> get currencies {
+    if (_currencies is EqualUnmodifiableListView) return _currencies;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_currencies);
+  }
 
   @override
   String toString() {
-    return 'AdminPageUIModel(categories: $categories, products: $products, productsMap: $productsMap, isLoading: $isLoading, errorMessage: $errorMessage, selectedCategory: $selectedCategory)';
+    return 'AdminPageUIModel(categories: $categories, products: $products, productsMap: $productsMap, isCategoryLoading: $isCategoryLoading, isProductLoading: $isProductLoading, errorMessage: $errorMessage, selectedCategory: $selectedCategory, currencies: $currencies)';
   }
 
   @override
@@ -239,12 +283,16 @@ class _$_AdminPageUIModel implements _AdminPageUIModel {
             const DeepCollectionEquality().equals(other._products, _products) &&
             const DeepCollectionEquality()
                 .equals(other._productsMap, _productsMap) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
+            (identical(other.isCategoryLoading, isCategoryLoading) ||
+                other.isCategoryLoading == isCategoryLoading) &&
+            (identical(other.isProductLoading, isProductLoading) ||
+                other.isProductLoading == isProductLoading) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.selectedCategory, selectedCategory) ||
-                other.selectedCategory == selectedCategory));
+                other.selectedCategory == selectedCategory) &&
+            const DeepCollectionEquality()
+                .equals(other._currencies, _currencies));
   }
 
   @override
@@ -253,9 +301,11 @@ class _$_AdminPageUIModel implements _AdminPageUIModel {
       const DeepCollectionEquality().hash(_categories),
       const DeepCollectionEquality().hash(_products),
       const DeepCollectionEquality().hash(_productsMap),
-      isLoading,
+      isCategoryLoading,
+      isProductLoading,
       errorMessage,
-      selectedCategory);
+      selectedCategory,
+      const DeepCollectionEquality().hash(_currencies));
 
   @JsonKey(ignore: true)
   @override
@@ -269,22 +319,30 @@ abstract class _AdminPageUIModel implements AdminPageUIModel {
       {final List<Category> categories,
       final List<Product> products,
       final Map<int, List<Product>> productsMap,
-      final bool isLoading,
+      final bool isCategoryLoading,
+      final bool isProductLoading,
       final String? errorMessage,
-      final Category? selectedCategory}) = _$_AdminPageUIModel;
+      final Category? selectedCategory,
+      final List<Currency> currencies}) = _$_AdminPageUIModel;
 
   @override
+
+  /// The @Default annotation is used to set a default value for a field.
   List<Category> get categories;
   @override
   List<Product> get products;
   @override
   Map<int, List<Product>> get productsMap;
   @override
-  bool get isLoading;
+  bool get isCategoryLoading;
+  @override
+  bool get isProductLoading;
   @override
   String? get errorMessage;
   @override
   Category? get selectedCategory;
+  @override
+  List<Currency> get currencies;
   @override
   @JsonKey(ignore: true)
   _$$_AdminPageUIModelCopyWith<_$_AdminPageUIModel> get copyWith =>

@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../di/components/service_locator.dart';
 import '../../models/admin/product/create_product_model.dart';
+import '../../models/admin/product/currency/currency.dart';
 import '../../models/admin/product/delete_product_model.dart';
 import '../../models/admin/product/get_product_model.dart';
 import '../../models/admin/product/update_product_model.dart';
@@ -41,6 +42,13 @@ class ProductRepository {
       DeleteProductRequest request) async {
     final Either<String, DeleteProductResponse> response =
         await api.deleteProduct(request);
+    return response;
+  }
+
+  // get currencies
+  Future<Either<String, GetCurrenciesResponse>> getCurrencies() async {
+    final Either<String, GetCurrenciesResponse> response =
+        await api.getCurrencies();
     return response;
   }
 }

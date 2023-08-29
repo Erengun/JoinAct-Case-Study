@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../../constants/endpoints.dart';
 import '../../../../models/admin/product/create_product_model.dart';
+import '../../../../models/admin/product/currency/currency.dart';
 import '../../../../models/admin/product/delete_product_model.dart';
 import '../../../../models/admin/product/get_product_model.dart';
 import '../../../../models/admin/product/update_product_model.dart';
@@ -31,5 +32,10 @@ abstract class ProductRestClient {
   @POST('/DeleteProduct')
   Future<DeleteProductResponse> deleteProduct(
     @Body() DeleteProductRequest request,
+  );
+
+  @POST('/GetCurrencies')
+  Future<GetCurrenciesResponse> getCurrencies(
+    @Body() GetCurrenciesRequest request,
   );
 }

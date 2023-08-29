@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../models/admin/category/category.dart';
 import '../../../../models/admin/product/create_product_model.dart';
+import '../../../../models/admin/product/currency/currency.dart';
 import '../admin_page_logic.dart';
 import '../admin_page_ui_model.dart';
 
 class CreateProductDialog extends ConsumerStatefulWidget {
-  const CreateProductDialog({super.key, required this.categories});
+  const CreateProductDialog({super.key, required this.categories, required this.currencies});
   final List<Category> categories;
+  final List<Currency> currencies;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -125,14 +127,22 @@ class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
                     productRequest.copyWith(productVideoLink: value);
               },
             ),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Currency ID',
-              ),
-              onChanged: (String value) {
-                productRequest =
-                    productRequest.copyWith(currencyId: int.parse(value));
+            DropdownButtonFormField<Currency>(
+              value: widget.currencies.first,
+              onChanged: (Currency? newValue) {
+                productRequest = productRequest.copyWith(currencyId: newValue!.id);
               },
+              items: widget.currencies
+                  .map<DropdownMenuItem<Currency>>(
+                    (Currency currency) => DropdownMenuItem<Currency>(
+                      value: currency,
+                      child: Text(currency.name),
+                    ),
+                  )
+                  .toList(),
+              decoration: const InputDecoration(
+                labelText: 'Currency',
+              ),
             ),
           ],
         ),

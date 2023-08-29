@@ -7,6 +7,7 @@ import '../../../models/admin/category/delete_category_model.dart';
 import '../../../models/admin/category/get_category_model.dart';
 import '../../../models/admin/category/update_category_model.dart';
 import '../../../models/admin/product/create_product_model.dart';
+import '../../../models/admin/product/currency/currency.dart';
 import '../../../models/admin/product/delete_product_model.dart';
 import '../../../models/admin/product/get_product_model.dart';
 import '../../../models/admin/product/update_product_model.dart';
@@ -142,6 +143,21 @@ class AdminApi {
     try {
       final DeleteProductResponse response =
           await _productRestClient.deleteProduct(request);
+      if (!response.isSuccessful) {
+        debugPrint(response.message);
+        return left(response.message);
+      }
+      return right(response);
+    } catch (e) {
+      debugPrint(e.toString());
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, GetCurrenciesResponse>> getCurrencies() async {
+    try {
+      final GetCurrenciesResponse response =
+          await _productRestClient.getCurrencies(const GetCurrenciesRequest());
       if (!response.isSuccessful) {
         debugPrint(response.message);
         return left(response.message);
