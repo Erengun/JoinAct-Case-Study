@@ -25,7 +25,8 @@ class _UserRestClient implements UserRestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<GetOrdersResponse>(Options(
       method: 'POST',
@@ -52,7 +53,8 @@ class _UserRestClient implements UserRestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = body;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<CreateUserResponse>(Options(
       method: 'POST',
@@ -71,6 +73,34 @@ class _UserRestClient implements UserRestClient {
               baseUrl,
             ))));
     final value = CreateUserResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CreateOrderResponse> createOrder(CreateOrderRequest body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CreateOrderResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/CreateOrder',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = CreateOrderResponse.fromJson(_result.data!);
     return value;
   }
 

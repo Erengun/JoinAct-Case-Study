@@ -5,6 +5,7 @@ import '../../di/components/service_locator.dart';
 import '../../models/admin/product/get_product_model.dart';
 import '../../models/user/create_user_model.dart';
 import '../../models/user/get_order_model.dart';
+import '../../models/user/order/create_order_model.dart';
 import 'user/user_api.dart';
 
 part 'order_repository.g.dart';
@@ -30,6 +31,12 @@ class OrderRepository {
   // create user
   Future<Either<String, CreateUserResponse>> createUser(CreateUserRequest request) async {
     final Either<String, CreateUserResponse> response = await api.createUser(request);
+    return response;
+  }
+
+  // create order
+  Future<Either<String, CreateOrderResponse>> createOrder(CreateOrderRequest request) async {
+    final Either<String, CreateOrderResponse> response = await api.createOrder(request);
     return response;
   }
 }

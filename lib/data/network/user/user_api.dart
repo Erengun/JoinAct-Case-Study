@@ -6,6 +6,7 @@ import '../../../models/admin/category/get_category_model.dart';
 import '../../../models/admin/product/get_product_model.dart';
 import '../../../models/user/create_user_model.dart';
 import '../../../models/user/get_order_model.dart';
+import '../../../models/user/order/create_order_model.dart';
 import '../admin/category/category_rest_client.dart';
 import '../admin/product/product_rest_client.dart';
 import 'user_rest_client.dart';
@@ -64,6 +65,20 @@ class UserApi {
     try {
       final CreateUserResponse response =
           await _userRestClient.createUser(request);
+      if (response.isSuccessful == false) {
+        return left(response.message);
+      }
+      return right(response);
+    } catch (e) {
+      debugPrint(e.toString());
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, CreateOrderResponse>> createOrder(CreateOrderRequest request) async {
+    try {
+      final CreateOrderResponse response =
+          await _userRestClient.createOrder(request);
       if (response.isSuccessful == false) {
         return left(response.message);
       }
