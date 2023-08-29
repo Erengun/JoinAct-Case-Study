@@ -1,12 +1,13 @@
-# Flutter Riverpod 2.0 Template
+# JoinAct Case Study
 
 
-## A flutter template with Riverpod 2.0, Freezed, Go Router, Hive, Easy Localization and more.
+## Case Study project for Ofis.work by Eren GÜN
 
-This template is a starting point for a Flutter application. It contains a lot of useful packages and best practices.
+The project includes two core APIs: one for admins and another for users. It also features two main screens, designed separately for admin and user use, along with both light and dark themes.
 
-It is also a good starting point for learning how to use Riverpod 2.0 and Freezed annotations for immutable state.
+The project written upon the Template written by me. All credits goes to me.
 
+## Features
 
 - Using Riverpod 2.0 for state management.
 - Using Riverpod and Freezed annotations for immutable state.
@@ -14,6 +15,30 @@ It is also a good starting point for learning how to use Riverpod 2.0 and Freeze
 - Using Flutter Lints for stricter linting rules.
 - Using Hive for platform independent storage that also works for web.
 - Project structure, const constructors, extracted widgets and many more...
+
+## Getting Started
+Get packages
+```bash
+flutter pub get
+```
+
+Run the app
+```bash
+flutter run
+```
+
+## Posible Errors
+If you dont have generated files, you can generate them with this command
+```bash
+flutter pub run build_runner build
+```
+
+and of cousres if you have any error, you can clean the project with this command
+```bash
+flutter clean 
+```
+best problem solver :)
+
 
 ## Pub packages
 
@@ -34,25 +59,7 @@ This repository makes use of the following pub packages:
 | [Url Launcher](https://pub.dev/packages/url_launcher)               | ^6.1.7  | Open urls in Browser               |
 | [Ionicons](https://pub.dev/packages/ionicons)                       | ^0.2.2  | Modern icon library                |
 
-> \* Recommended to keep regardless of your project
 
-## Using this package as a starting point
-
-After following the installation steps you can customize your project. 
-
-The screens and widgets that
-are inside the project can be easily replaced or removed. They are supposed to give the user a basic
-understanding of the relations between widgets and some good practices. 
-
-The code includes some
-comments with documentation and examples. 
-
-The examples can be found by searching for "Example:"
-inside the project files.
-
-### Changing the package and app name
-
-You can follow the instructions in this [Stackoverflow issue](https://stackoverflow.com/a/51550358).
 
 ### State management
 
@@ -290,100 +297,28 @@ The Call
   context.go(SGRoute.{your_route_name}.route);
 ```
 
-### Removing unwanted packages
-
-If a package is not listed, then removing it from [pubspec.yaml](./pubspec.yaml) as well as all
-imports and uses should be enough. This is required for removing every packages, the following
-instructions are an addition to that.
-
-#### Flutter Lints
-
-Delete the [analysis_options.yaml](./analysis_options.yaml) file. As an alternative you can modify
-the rules in this file or use a different package like [Lint](https://pub.dev/packages/lint).
-
-#### Easy Localization
-
-Remove the [assets/translations](./assets/translations) folder. Go
-to [ios/Runner/Info.plist](./ios/Runner/Info.plist) and remove the following code:
-
-```
-<key>CFBundleLocalizations</key>
-<array>
-	<string>en</string>
-   	<string>de</string>
-</array>
-```
-
-#### Url Launcher
-
-For iOS go to [ios/Runner/Info.plist](./ios/Runner/Info.plist) and remove the following code:
-
-```
-<key>LSApplicationQueriesSchemes</key>
-<array>
-  <string>https</string>
-  <string>http</string>
-</array>
-```
-
-For Android you can take a look at this [Stackoverflow issue](https://stackoverflow.com/a/65082750)
-for more information. Go
-to [android/app/src/AndroidManifest.xml](./android/app/src/main/AndroidManifest.xml) and add the
-following code:
-
-```
-<manifest [...]
-
-    <application>
-        [...]
-    </application
-    
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="https" />
-        </intent>
-    </queries>
-
-</manifest>
-```
-
 ## Screenshots
 
 #### Light Theme
 
-| Home Light                                                                     | Info Light                                                                     |
+| Admin Light                                                                     | UserScreen Light                                                                     |
 |--------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
-| ![Home Light](./assets/img/home_light.jpg "The home page with a light theme.") | ![Info Light](./assets/img/info_light.jpg "The info page with a light theme.") |
+| ![Admin Light](./assets/img/admin_light.jpg "The admin page with a light theme.") | ![UserScreen Light](./assets/img/user_light.jpg "The info page with a light theme.") |
 
 #### Dark Theme
 
-| Home Dark Turkish                                                            | Info Dark Turkish                                                            |
+| Admin Dark                                                                   | UserScreen Dark                                                                   |
 |-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| ![Home Dark](./assets/img/home_dark.jpg "The home page with a dark theme.") | ![Info Dark](./assets/img/info_dark.jpg "The info page with a dark theme.") |
+| ![Admin Dark](./assets/img/admin_dark.jpg "The admin page with a dark theme.") | ![UserScreen Dark](./assets/img/user_dark.jpg "The UserScreen page with a dark theme.") |
 
 
 ## Web
 
-| Home Light Web                                                                     | Info Light Web                                                                     |
+| Admin Light Web                                                                     | UserScreen Light Web                                                                     |
 |------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| ![Home Light Web](./assets/img/home_light_web.jpg "The home page with a light theme.") | ![Info Light Web](./assets/img/info_light_web.jpg "The info page with a light theme.") |
+| ![Admin Light Web](./assets/img/admin_light_web.jpg "The admin page with a light theme.") | ![UserScreen Light Web](./assets/img/UserScreen_light_web.jpg "The UserScreen page with a light theme.") |
 
-| Home Dark Web                                                                     | Info Dark Web                                                                     |
+| Admin Dark Web                                                                     | UserScreen Dark Web                                                                     |
 |------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| ![Home Dark Web](./assets/img/home_dark_web.jpg "The home page with a dark theme.") | ![Info Dark Web](./assets/img/info_dark_web.jpg "The info page with a dark theme.") |
+| ![Admin Dark Web](./assets/img/admin_dark_web.jpg "The admin page with a dark theme.") | ![UserScreen Dark Web](./assets/img/UserScreen_dark_web.jpg "The UserScreen page with a dark theme.") |
 
-## What's next?
-I will use Github issues to keep track of the things I want to add to this template. Feel free to add your own suggestions. And if you want to contribute to this project feel free to create a pull request.
-
-The easiest way to contribute is to add more language support for the localization.
-
-- Tests: We need tests for the logic classes. 
-- Example: More examples for the logic classes. Especially for the handling api calls.
-- Documentation: Have to add more documentation and comments.
-- Contributor page in the app: I want to add a contributor page in the app. It should show the contributors and their github profile picture. I will add this soon.
-- Contribution guidelines: I will add contribution guidelines soon. For now just create a pull request and I will take a look at it.
-
-
-## License
-Project is published under the [MIT license](./LICENSE.md). Feel free to clone and modify repo as you want, but don't forget to add reference to authors :)
