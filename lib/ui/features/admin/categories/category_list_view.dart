@@ -22,16 +22,15 @@ class CategoriesListView extends ConsumerStatefulWidget {
 class _CategoriesListViewState extends ConsumerState<CategoriesListView> {
   @override
   Widget build(BuildContext context) {
-    /// Theres a bug in the EditableText widget
-    /// that when theme changes the text color is not updated.
-    /// To fix this we use the [ref.watch] method to watch the [themeLogicProvider].
-    /// This will rebuild the widget when the theme changes.
-    final ThemeUiModel themeUiModel = ref.watch(themeLogicProvider);
     final AdminPageUIModel adminLogic = ref.watch(adminPageLogicProvider);
     return ListView.builder(
       itemCount: adminLogic.categories.length,
       shrinkWrap: true,
-      itemBuilder: (BuildContext context, int index) {
+      /// Theres a bug in the ItemBuilder of the [ListView.builder]
+      /// that when theme changes the text color is not updated.
+      /// To fix this we change the name of the [BuildContext context] to [BuildContext builderContext 
+      /// this will make the [ListView.builder] to rebuild when the theme changes.
+      itemBuilder: (BuildContext builderContext, int index) {
         final Category category = adminLogic.categories[index];
         final List<Product> products =
             adminLogic.productsMap[category.id] ?? <Product>[];
@@ -44,13 +43,7 @@ class _CategoriesListViewState extends ConsumerState<CategoriesListView> {
             controller: controller,
             strutStyle: const StrutStyle(),
             focusNode: FocusNode(),
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: themeUiModel.themeMode == ThemeMode.dark
-                  ? Colors.white
-                  : Colors.black,
-            ),
+            style: context.textTheme.titleLarge!,
             cursorColor: context.theme.primaryColor,
             backgroundCursorColor: context.theme.primaryColor,
             onEditingComplete: () {
