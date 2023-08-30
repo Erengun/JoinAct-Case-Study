@@ -17,36 +17,26 @@ class ProductsListView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final UserUIModel userLogic = ref.watch(userLogicProvider);
     return ListView.builder(
-      itemCount: userLogic.productsMap.length,
+      itemCount: userLogic.categories.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         final Category category = userLogic.categories[index];
-        final List<Product> products = userLogic.productsMap[category.id]!;
+        final List<Product> products = userLogic.productsMap[category.id] ?? [];
         return 
         ExpansionTile(
           title: Text(category.name),
           children: products
-              .map((Product product) => Dismissible(
-                    key: UniqueKey(),
-                    child: ProductCard(
-                      product: product,
-                      onTap: () {
-                        ref
-                            .read(userLogicProvider.notifier)
-                            .addProductToCart(product);
-                        context.showAwesomeMaterialBanner(
-                            title: 'Success',
-                            message: 'Product added to cart successfully');
-                      },
-                    ),
-                    onDismissed: (DismissDirection direction) {
-                      // ref.read(userLogicProvider.notifier).removeProduct(
-                      //     product.id,
-                      //     onSuccess: () => context.showAwesomeSnackBar(
-                      //         title: 'Success',
-                      //         message: 'Product deleted successfully'));
-                    },
-                  ))
+              .map((Product product) => ProductCard(
+                product: product,
+                onTap: () {
+                  ref
+                      .read(userLogicProvider.notifier)
+                      .addProductToCart(product);
+                  context.showAwesomeMaterialBanner(
+                      title: 'Success',
+                      message: 'Product added to cart successfully');
+                },
+              ))
               .toList(),
         );
       },

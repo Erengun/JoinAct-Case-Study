@@ -103,7 +103,9 @@ class _AdminPageState extends ConsumerState<AdminPage> {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   )
-                : (adminLogic.isCategoryLoading || adminLogic.isProductLoading)
+                : (adminLogic.isCategoryLoading ||
+                        adminLogic.isProductLoading &&
+                            adminLogic.errorMessage == null)
                     ? const Center(child: CircularProgressIndicator())
                     : const CategoriesListView(),
           ),

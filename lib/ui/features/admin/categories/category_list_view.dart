@@ -18,11 +18,12 @@ class CategoriesListView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final AdminPageUIModel adminLogic = ref.watch(adminPageLogicProvider);
     return ListView.builder(
-      itemCount: adminLogic.productsMap.length,
+      itemCount: adminLogic.categories.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         final Category category = adminLogic.categories[index];
-        final List<Product> products = adminLogic.productsMap[category.id]!;
+        final List<Product> products =
+            adminLogic.productsMap[category.id] ?? <Product>[];
         final TextEditingController controller =
             TextEditingController(text: category.name);
         return ExpansionTile(
@@ -61,11 +62,8 @@ class CategoriesListView extends ConsumerWidget {
                                   adminLogic.categories,
                                   adminLogic.currencies,
                                   adminLogic.productsMap,
-                                  onSuccess: () =>
-                                      context.showAwesomeMaterialBanner(
-                                          title: 'Success',
-                                          message:
-                                              'Product updated successfully'),
+                                  onSuccess: () => debugPrint(
+                                      'Product updated successfully'),
                                 ));
                       },
                     ),
