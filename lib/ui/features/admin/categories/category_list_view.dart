@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../config/theme/theme_logic.dart';
+import '../../../../config/theme/theme_ui_model.dart';
 import '../../../../models/admin/category/category.dart';
 import '../../../../models/admin/product/product.dart';
 import '../../../../utils/context_extensions.dart';
@@ -9,13 +11,22 @@ import '../admin_page_ui_model.dart';
 import '../products/product_card.dart';
 import '../products/update_product_dialog.dart';
 
-class CategoriesListView extends ConsumerWidget {
-  const CategoriesListView({
-    super.key,
-  });
+class CategoriesListView extends ConsumerStatefulWidget {
+  const CategoriesListView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CategoriesListViewState();
+}
+
+class _CategoriesListViewState extends ConsumerState<CategoriesListView> {
+  @override
+  Widget build(BuildContext context) {
+    /// Theres a bug in the EditableText widget
+    /// that when theme changes the text color is not updated.
+    /// To fix this we use the [ref.watch] method to watch the [themeLogicProvider].
+    /// This will rebuild the widget when the theme changes.
+    final ThemeUiModel themeUiModel = ref.watch(themeLogicProvider);
     final AdminPageUIModel adminLogic = ref.watch(adminPageLogicProvider);
     return ListView.builder(
       itemCount: adminLogic.categories.length,
@@ -24,14 +35,22 @@ class CategoriesListView extends ConsumerWidget {
         final Category category = adminLogic.categories[index];
         final List<Product> products =
             adminLogic.productsMap[category.id] ?? <Product>[];
-        final TextEditingController controller =
-            TextEditingController(text: category.name);
+        final TextEditingController controller = TextEditingController(
+          text: category.name,
+        );
         return ExpansionTile(
           /// We use the [EditableText] widget to make the title editable.
           title: EditableText(
             controller: controller,
+            strutStyle: const StrutStyle(),
             focusNode: FocusNode(),
-            style: context.textTheme.titleLarge!,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: themeUiModel.themeMode == ThemeMode.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
             cursorColor: context.theme.primaryColor,
             backgroundCursorColor: context.theme.primaryColor,
             onEditingComplete: () {

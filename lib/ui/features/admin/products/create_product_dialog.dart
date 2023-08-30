@@ -4,11 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../models/admin/category/category.dart';
 import '../../../../models/admin/product/create_product_model.dart';
 import '../../../../models/admin/product/currency/currency.dart';
+import '../../../../utils/context_extensions.dart';
 import '../admin_page_logic.dart';
 import '../admin_page_ui_model.dart';
 
 class CreateProductDialog extends ConsumerStatefulWidget {
-  const CreateProductDialog({super.key, required this.categories, required this.currencies});
+  const CreateProductDialog(
+      {super.key, required this.categories, required this.currencies});
   final List<Category> categories;
   final List<Currency> currencies;
 
@@ -130,7 +132,8 @@ class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
             DropdownButtonFormField<Currency>(
               value: widget.currencies.first,
               onChanged: (Currency? newValue) {
-                productRequest = productRequest.copyWith(currencyId: newValue!.id);
+                productRequest =
+                    productRequest.copyWith(currencyId: newValue!.id);
               },
               items: widget.currencies
                   .map<DropdownMenuItem<Currency>>(
@@ -144,7 +147,7 @@ class _CreateProductDialogState extends ConsumerState<CreateProductDialog> {
                 labelText: 'Currency',
               ),
             ),
-          ],
+          ].seperate(10),
         ),
       ),
       actions: <Widget>[
