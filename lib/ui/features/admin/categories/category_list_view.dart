@@ -7,6 +7,7 @@ import '../../../../utils/context_extensions.dart';
 import '../admin_page_logic.dart';
 import '../admin_page_ui_model.dart';
 import '../products/product_card.dart';
+import '../products/update_product_dialog.dart';
 
 class CategoriesListView extends ConsumerWidget {
   const CategoriesListView({
@@ -22,14 +23,51 @@ class CategoriesListView extends ConsumerWidget {
       itemBuilder: (BuildContext context, int index) {
         final Category category = adminLogic.categories[index];
         final List<Product> products = adminLogic.productsMap[category.id]!;
+        final TextEditingController controller =
+            TextEditingController(text: category.name);
         return ExpansionTile(
-          title: Text(category.name),
+          /// We use the [EditableText] widget to make the title editable.
+          title: EditableText(
+            controller: controller,
+            focusNode: FocusNode(),
+            style: context.textTheme.titleLarge!,
+            cursorColor: context.theme.primaryColor,
+            backgroundCursorColor: context.theme.primaryColor,
+            onEditingComplete: () {
+              ref.read(adminPageLogicProvider.notifier).updateCategory(
+                  category.id, controller.text.trim(),
+                  onSuccess: () => context.showErrorSnackBar(
+                      title: 'Success',
+                      message: 'Category updated successfully'));
+            },
+          ),
           children: products
               .map((Product product) => Dismissible(
                     key: UniqueKey(),
                     child: ProductCard(
                       product: product,
-                      onTap: () {},
+                      onTap: () {
+                        /// Tap on the product to update it.
+                        /// We use the showDialog method to show the [UpdateProductDialog].
+                        /// We pass the product, categories, currencies, and productsMap to the dialog.
+                        /// We also pass a callback function to be called when the product is updated successfully.
+                        /// The callback function shows a [AwesomeMaterialBanner] to show the user that the product is updated successfully.
+                        /// We use the [context.showErrorSnackBar] extension method to show the [AwesomeMaterialBanner].
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                UpdateProductDialog(
+                                  product,
+                                  adminLogic.categories,
+                                  adminLogic.currencies,
+                                  adminLogic.productsMap,
+                                  onSuccess: () =>
+                                      context.showAwesomeMaterialBanner(
+                                          title: 'Success',
+                                          message:
+                                              'Product updated successfully'),
+                                ));
+                      },
                     ),
                     onDismissed: (DismissDirection direction) {
                       ref.read(adminPageLogicProvider.notifier).removeProduct(

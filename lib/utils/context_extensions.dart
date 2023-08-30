@@ -1,5 +1,6 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 /// Extension for BuildContext to get theme, textTheme and colorScheme
 extension BuildContextExtensions on BuildContext {
@@ -11,7 +12,7 @@ extension BuildContextExtensions on BuildContext {
 extension ContextExtension on BuildContext {
   /// This method shows a SnackBar with the AwesomeSnackbarContent inside it.
   /// The SnackBar is used to show a banner at the bottom of the screen.
-  /// We use the [ScaffoldMessenger] to show the SnackBar. 
+  /// We use the [ScaffoldMessenger] to show the SnackBar.
   /// When representing errors, we use the [ContentType.failure] to show a red banner.
   void showErrorSnackBar({
     required String title,
@@ -60,5 +61,20 @@ extension ContextExtension on BuildContext {
     ScaffoldMessenger.of(this)
       ..hideCurrentMaterialBanner()
       ..showMaterialBanner(materialBanner);
+  }
+}
+
+extension ListGutter on List<Widget> {
+  /// This method adds a gutter between each widget in the list.
+  /// The gutter is a SizedBox with a height of 16.
+  List<Widget> seperate(double space) {
+    final List<Widget> list = <Widget>[];
+    for (int i = 0; i < length; i++) {
+      list.add(this[i]);
+      if (i != length - 1) {
+        list.add(Gap(space));
+      }
+    }
+    return list;
   }
 }

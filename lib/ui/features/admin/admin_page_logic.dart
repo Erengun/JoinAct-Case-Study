@@ -9,11 +9,13 @@ import '../../../models/admin/category/category.dart';
 import '../../../models/admin/category/create_category_model.dart';
 import '../../../models/admin/category/delete_category_model.dart';
 import '../../../models/admin/category/get_category_model.dart';
+import '../../../models/admin/category/update_category_model.dart';
 import '../../../models/admin/product/create_product_model.dart';
 import '../../../models/admin/product/currency/currency.dart';
 import '../../../models/admin/product/delete_product_model.dart';
 import '../../../models/admin/product/get_product_model.dart';
 import '../../../models/admin/product/product.dart';
+import '../../../models/admin/product/update_product_model.dart';
 import 'admin_page_ui_model.dart';
 
 part 'admin_page_logic.g.dart';
@@ -161,6 +163,31 @@ class AdminPageLogic extends _$AdminPageLogic {
     });
   }
 
+  updateCategory(int categoryId, String categoryName, {Function()? onSuccess}) async {
+    state = state.copyWith(
+      isCategoryLoading: true,
+    );
+    final Either<String, UpdateCategoryResponse> response = await ref
+        .watch(getCategoryRepositoryProvider)
+        .updateCategory(UpdateCategoryRequest(
+          id: categoryId,
+          name: categoryName,
+        ));
+    response.fold((String l) => setError(l), (UpdateCategoryResponse r) {
+      final List<Category> categories = List<Category>.from(state.categories);
+      final int index = categories.indexWhere(
+          (Category element) => element.id == r.data.id);
+      categories[index] = r.data;
+      state = state.copyWith(
+        isCategoryLoading: false,
+        categories: categories,
+      );
+      if (onSuccess != null) {
+        onSuccess();
+      }
+    });
+  }
+
   // product
 
   createProduct(CreateProductRequest request) async {
@@ -190,6 +217,29 @@ class AdminPageLogic extends _$AdminPageLogic {
     response.fold((String l) => setError(l), (DeleteProductResponse r) {
       final List<Product> products = List<Product>.from(state.products);
       products.removeWhere((Product element) => element.id == productId);
+      state = state.copyWith(
+        isProductLoading: false,
+        products: products,
+      );
+      setProductsMap(_getProductsMap(state.products));
+      if (onSuccess != null) {
+        onSuccess();
+      }
+    });
+  }
+
+  updateProduct(UpdateProductRequest request, {Function()? onSuccess}) async {
+    state = state.copyWith(
+      isProductLoading: true,
+    );
+    final Either<String, UpdateProductResponse> response = await ref
+        .watch(getProductRepositoryProvider)
+        .updateProduct(request);
+    response.fold((String l) => setError(l), (UpdateProductResponse r) {
+      final List<Product> products = List<Product>.from(state.products);
+      final int index = products.indexWhere(
+          (Product element) => element.id == r.data.id);
+      products[index] = r.data;
       state = state.copyWith(
         isProductLoading: false,
         products: products,
