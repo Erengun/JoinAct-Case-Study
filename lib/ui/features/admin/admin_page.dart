@@ -38,7 +38,7 @@ class _AdminPageState extends ConsumerState<AdminPage> {
         (Either<String, GetCategoriesResponse> response) => response.fold(
                 (String errorMessage) {
               ref.read(adminPageLogicProvider.notifier).setError(errorMessage);
-              context.showAwesomeMaterialBanner(
+              context.showErrorSnackBar(
                   title: 'Error', message: 'Api error');
             },
                 (GetCategoriesResponse response) => ref
@@ -57,9 +57,14 @@ class _AdminPageState extends ConsumerState<AdminPage> {
     ref
         .read(fetchAdminProductsProvider.future)
         .then((Either<String, GetProductsResponse> response) => response.fold(
-              (String errorMessage) => ref
-                  .read(adminPageLogicProvider.notifier)
-                  .setError(errorMessage),
+              (String errorMessage) {
+                ref
+                    .read(adminPageLogicProvider.notifier)
+                    .setError(errorMessage);
+                context.showErrorSnackBar(
+                    title: 'Error',
+                    message: 'Api error when fetching products');
+              },
               (GetProductsResponse response) => ref
                   .read(adminPageLogicProvider.notifier)
                   .setProducts(response.data.products),
